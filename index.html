@@ -534,7 +534,7 @@ body{
 }
 
 
-/* OCARINA SVG */
+/* OCARINA */
 
 .ocarina-icon{
 
@@ -982,18 +982,10 @@ body{
 <body>
 
 
-<!-- ===================================================
-     FONDO
-=================================================== -->
-
 <div class="background"></div>
 
 <div class="ambient-glow"></div>
 
-
-<!-- ===================================================
-     MÚSICA
-=================================================== -->
 
 <audio
 
@@ -1010,10 +1002,6 @@ body{
 </audio>
 
 
-<!-- ===================================================
-     BOTÓN OCARINA
-=================================================== -->
-
 <button
 
   id="musicButton"
@@ -1028,12 +1016,9 @@ body{
   src="ocarina.png"
   alt=""
   aria-hidden="true">
+
 </button>
 
-
-<!-- ===================================================
-     NAVI
-=================================================== -->
 
 <img
 
@@ -1044,14 +1029,8 @@ body{
   alt="">
 
 
-<!-- ===================================================
-     CONTENIDO PRINCIPAL
-=================================================== -->
-
 <main class="page">
 
-
-  <!-- LOGO -->
 
   <section class="hero">
 
@@ -1081,8 +1060,6 @@ body{
   </section>
 
 
-
-  <!-- CUENTA ATRÁS -->
 
   <section class="countdown-section">
 
@@ -1303,11 +1280,6 @@ function updateCountdown(){
     totalSeconds % 60;
 
 
-  /*
-     DÍAS SIN CERO DELANTE
-     52 en lugar de 052
-  */
-
   daysElement.textContent =
     String(days);
 
@@ -1451,6 +1423,17 @@ let naviY =
   window.innerHeight * .30;
 
 
+/*
+   VELOCIDAD MUY SUAVE DE NAVI
+*/
+
+let naviVX = 0;
+let naviVY = 0;
+
+const naviMaxSpeed = 0.045;
+const naviSteering = 0.0018;
+
+
 let targetX =
 
   window.innerWidth * .75;
@@ -1462,6 +1445,8 @@ let targetY =
 
 
 let lastSpark = 0;
+
+let lastNaviTime = 0;
 
 
 
@@ -1495,7 +1480,7 @@ navi.addEventListener(
 function chooseNaviTarget(){
 
 
-  const margin = 30;
+  const margin = 40;
 
 
   targetX =
@@ -1506,19 +1491,19 @@ function chooseNaviTarget(){
 
     Math.max(
       1,
-      window.innerWidth - 100
+      window.innerWidth - 120
     );
 
 
   targetY =
 
-    100 +
+    110 +
 
     Math.random() *
 
     Math.max(
       1,
-      window.innerHeight - 220
+      window.innerHeight - 240
     );
 
 }
@@ -1607,6 +1592,30 @@ function createNaviSpark(){
 function animateNavi(time){
 
 
+  /*
+     Tiempo real entre frames.
+     Hace que el movimiento sea suave
+     independientemente de los FPS.
+  */
+
+  if(!lastNaviTime){
+
+    lastNaviTime = time;
+
+  }
+
+
+  const deltaTime =
+
+    Math.min(
+      time - lastNaviTime,
+      40
+    );
+
+
+  lastNaviTime = time;
+
+
   const dx =
 
     targetX -
@@ -1627,54 +1636,139 @@ function animateNavi(time){
     );
 
 
-  if(distance < 12){
+  /*
+     Cuando se acerca al destino,
+     buscamos otro punto sin cambiar
+     bruscamente la trayectoria.
+  */
+
+  if(distance < 35){
 
     chooseNaviTarget();
 
   }
 
-  else{
+
+  const newDX =
+
+    targetX -
+    naviX;
 
 
-    const speed =
+  const newDY =
 
-      .0015 *
-      distance;
-
-
-    naviX +=
-      dx * speed;
+    targetY -
+    naviY;
 
 
-    naviY +=
-      dy * speed;
+  const newDistance =
+
+    Math.sqrt(
+      newDX*newDX +
+      newDY*newDY
+    );
+
+
+  if(newDistance > 0){
+
+    const desiredVX =
+
+      (newDX / newDistance) *
+      naviMaxSpeed;
+
+
+    const desiredVY =
+
+      (newDY / newDistance) *
+      naviMaxSpeed;
+
+
+    /*
+       La dirección cambia progresivamente.
+    */
+
+    const steeringAmount =
+
+      Math.min(
+        1,
+        naviSteering *
+        deltaTime
+      );
+
+
+    naviVX +=
+
+      (desiredVX - naviVX) *
+      steeringAmount;
+
+
+    naviVY +=
+
+      (desiredVY - naviVY) *
+      steeringAmount;
 
   }
 
 
+  /*
+     Movimiento basado en tiempo real.
+  */
+
+  naviX +=
+
+    naviVX *
+    deltaTime;
+
+
+  naviY +=
+
+    naviVY *
+    deltaTime;
+
+
+  /*
+     Pequeño balanceo flotante.
+  */
+
   const swayX =
 
     Math.sin(
-      time*.0023
-    ) * 8;
+      time*.00115
+    ) * 5;
 
 
   const swayY =
 
     Math.cos(
-      time*.0017
-    ) * 7;
+      time*.00085
+    ) * 4;
 
 
-  const angle =
+  /*
+     Inclinación muy ligera siguiendo
+     la dirección real de movimiento.
+  */
+
+  const velocityAngle =
 
     Math.atan2(
-      dy,
-      dx
+      naviVY,
+      naviVX
     ) *
 
     180 /
     Math.PI;
+
+
+  const angle =
+
+    Math.max(
+      -7,
+      Math.min(
+        7,
+        velocityAngle * .10
+      )
+    );
 
 
   navi.style.left =
@@ -1692,8 +1786,13 @@ function animateNavi(time){
   navi.style.transform =
 
     `translate(${swayX}px,${swayY}px)
-     rotate(${angle*.12}deg)`;
+     rotate(${angle}deg)`;
 
+
+  /*
+     Menos destellos para que Navi
+     resulte más tranquila.
+  */
 
   if(
 
@@ -1701,7 +1800,7 @@ function animateNavi(time){
 
     time -
     lastSpark >
-    150
+    260
 
   ){
 
@@ -1804,10 +1903,6 @@ async function tryStartMusic(){
 }
 
 
-/*
-   Intento de autoplay
-*/
-
 window.addEventListener(
 
   "load",
@@ -1821,12 +1916,6 @@ window.addEventListener(
 );
 
 
-
-/*
-   Si el navegador bloquea
-   el autoplay, el primer
-   toque intenta arrancarlo.
-*/
 
 let musicUnlocked = false;
 
@@ -1897,10 +1986,6 @@ async function unlockMusicFromInteraction(){
 );
 
 
-
-/*
-   Botón de la ocarina
-*/
 
 musicButton.addEventListener(
 
