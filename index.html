@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07130d">
+<meta name="description" content="Cuenta atrás para Ocarina of Time - 5 de noviembre de 2026">
+
+<title>OoT Countdown</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  font-family: Georgia, "Times New Roman", serif;
+  background: #07130d;
+  color: #f5e7b2;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.app {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 25%, rgba(94, 139, 91, 0.25), transparent 35%),
+    radial-gradient(circle at 20% 80%, rgba(48, 93, 67, 0.22), transparent 35%),
+    linear-gradient(145deg, #07130d 0%, #102719 48%, #050b08 100%);
+}
+
+.app::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  background-image:
+    radial-gradient(circle at 20% 30%, #d6c47a 0 1px, transparent 2px),
+    radial-gradient(circle at 80% 65%, #d6c47a 0 1px, transparent 2px),
+    radial-gradient(circle at 55% 85%, #d6c47a 0 1px, transparent 2px);
+  background-size: 90px 90px, 130px 130px, 170px 170px;
+  pointer-events: none;
+}
+
+.card {
+  width: min(100%, 520px);
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 42px 24px 34px;
+  border: 1px solid rgba(221, 195, 112, 0.45);
+  border-radius: 22px;
+  background: rgba(5, 16, 10, 0.72);
+  box-shadow:
+    0 20px 70px rgba(0, 0, 0, 0.55),
+    inset 0 0 50px rgba(126, 153, 86, 0.07);
+  backdrop-filter: blur(8px);
+}
+
+.symbol {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 22px;
+  border: 2px solid #d8c477;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d8c477;
+  font-size: 34px;
+  box-shadow: 0 0 30px rgba(216, 196, 119, 0.12);
+}
+
+.eyebrow {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: #b6b890;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: clamp(26px, 7vw, 42px);
+  letter-spacing: 3px;
+  font-weight: normal;
+  color: #f5e7b2;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+}
+
+.subtitle {
+  margin-top: 8px;
+  color: #9eaa8d;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.divider {
+  width: 100px;
+  height: 1px;
+  margin: 28px auto;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #d8c477,
+    transparent
+  );
+}
+
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 10px 0 28px;
+}
+
+.unit {
+  padding: 12px 4px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(216,196,119,0.13);
+}
+
+.number {
+  font-family: Arial, sans-serif;
+  font-size: clamp(27px, 8vw, 43px);
+  font-weight: 700;
+  color: #f1dfa0;
+  line-height: 1;
+}
+
+.label {
+  margin-top: 7px;
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #89977d;
+}
+
+.date {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #c8c18f;
+}
+
+.message {
+  margin-top: 18px;
+  font-style: italic;
+  font-size: 15px;
+  color: #aeb59a;
+}
+
+.share {
+  margin-top: 28px;
+  padding: 12px 22px;
+  border: 1px solid rgba(216,196,119,0.5);
+  border-radius: 30px;
+  background: rgba(216,196,119,0.08);
+  color: #e5d394;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+}
+
+.share:active {
+  transform: scale(0.97);
+}
+
+.footer {
+  margin-top: 25px;
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #596653;
+}
+
+@media (max-width: 380px) {
+  .card {
+    padding: 30px 14px 25px;
+  }
+
+  .countdown {
+    gap: 5px;
+  }
+
+  .number {
+    font-size: 27px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <main class="card">
+
+    <div class="symbol">♪</div>
+
+    <div class="eyebrow">THE LEGEND OF ZELDA</div>
+
+    <h1>OCARINA OF TIME</h1>
+
+    <div class="subtitle">REMAKE</div>
+
+    <div class="divider"></div>
+
+    <section class="countdown">
+
+      <div class="unit">
+        <div class="number" id="days">--</div>
+        <div class="label">DÍAS</div>
+      </div>
+
+      <div class="unit">
+        <div class="number" id="hours">--</div>
+        <div class="label">HORAS</div>
+      </div>
+
+      <div class="unit">
+        <div class="number" id="minutes">--</div>
+        <div class="label">MINUTOS</div>
+      </div>
+
+      <div class="unit">
+        <div class="number" id="seconds">--</div>
+        <div class="label">SEGUNDOS</div>
+      </div>
+
+    </section>
+
+    <div class="date">5 · NOVIEMBRE · 2026</div>
+
+    <div class="message" id="message">
+      El tiempo se acerca...
+    </div>
+
+    <button class="share" onclick="shareApp()">
+      COMPARTIR CUENTA ATRÁS
+    </button>
+
+    <div class="footer">
+      UNA PEQUEÑA ESPERA PARA UNA GRAN AVENTURA
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+
+const releaseDate = new Date("2026-11-05T00:00:00");
+
+function updateCountdown() {
+
+  const now = new Date();
+  const difference = releaseDate - now;
+
+  if (difference <= 0) {
+
+    document.getElementById("days").textContent = "0";
+    document.getElementById("hours").textContent = "00";
+    document.getElementById("minutes").textContent = "00";
+    document.getElementById("seconds").textContent = "00";
+
+    document.getElementById("message").textContent =
+      "¡La espera ha terminado!";
+
+    return;
+  }
+
+  const totalSeconds = Math.floor(difference / 1000);
+
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  document.getElementById("days").textContent = days;
+  document.getElementById("hours").textContent =
+    String(hours).padStart(2, "0");
+
+  document.getElementById("minutes").textContent =
+    String(minutes).padStart(2, "0");
+
+  document.getElementById("seconds").textContent =
+    String(seconds).padStart(2, "0");
+}
+
+async function shareApp() {
+
+  const text =
+    "⏳ Cuenta atrás para Ocarina of Time Remake: 5 de noviembre de 2026";
+
+  if (navigator.share) {
+
+    try {
+      await navigator.share({
+        title: "OoT Countdown",
+        text: text,
+        url: window.location.href
+      });
+    } catch (error) {
+      // El usuario canceló el menú de compartir.
+    }
+
+  } else {
+
+    try {
+
+      await navigator.clipboard.writeText(
+        text + "\n" + window.location.href
+      );
+
+      alert("Enlace copiado.");
+
+    } catch (error) {
+
+      alert("Copia el enlace de esta página para compartirla.");
+
+    }
+
+  }
+}
+
+updateCountdown();
+
+setInterval(updateCountdown, 1000);
+
+</script>
+
+</body>
+</html>
