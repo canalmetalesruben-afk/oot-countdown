@@ -2,355 +2,1069 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#07130d">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<meta name="theme-color" content="#06110d">
+
+<meta name="description"
+      content="Cuenta atrás para Ocarina of Time Remake — 5 de noviembre de 2026">
+
 <link rel="manifest" href="manifest.json">
-<meta name="description" content="Cuenta atrás para Ocarina of Time - 5 de noviembre de 2026">
 
 <title>OoT Countdown</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-html, body {
-  width: 100%;
-  min-height: 100%;
-  font-family: Georgia, "Times New Roman", serif;
-  background: #07130d;
-  color: #f5e7b2;
+html,
+body{
+    width:100%;
+    min-height:100%;
+    background:#050b08;
+    color:#f4e5ad;
+    font-family:Georgia,"Times New Roman",serif;
 }
 
-body {
-  min-height: 100vh;
-  overflow-x: hidden;
+body{
+    min-height:100vh;
+    overflow-x:hidden;
 }
 
-.app {
-  min-height: 100vh;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px 20px;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 25%, rgba(94, 139, 91, 0.25), transparent 35%),
-    radial-gradient(circle at 20% 80%, rgba(48, 93, 67, 0.22), transparent 35%),
-    linear-gradient(145deg, #07130d 0%, #102719 48%, #050b08 100%);
+/* =========================
+   FONDO
+========================= */
+
+.app{
+
+    min-height:100vh;
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:center;
+
+    padding:30px 16px 45px;
+
+    overflow:hidden;
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            rgba(3,12,9,.35),
+            rgba(3,12,9,.72) 60%,
+            rgba(2,7,5,.96)
+        ),
+
+        url("hyrule-bg.png");
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-attachment:fixed;
 }
 
-.app::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.18;
-  background-image:
-    radial-gradient(circle at 20% 30%, #d6c47a 0 1px, transparent 2px),
-    radial-gradient(circle at 80% 65%, #d6c47a 0 1px, transparent 2px),
-    radial-gradient(circle at 55% 85%, #d6c47a 0 1px, transparent 2px);
-  background-size: 90px 90px, 130px 130px, 170px 170px;
-  pointer-events: none;
+/* Oscurecimiento */
+
+.app::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 20%,
+            transparent 0%,
+            rgba(0,0,0,.15) 45%,
+            rgba(0,0,0,.62) 100%
+        );
+
+    pointer-events:none;
 }
 
-.card {
-  width: min(100%, 520px);
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 42px 24px 34px;
-  border: 1px solid rgba(221, 195, 112, 0.45);
-  border-radius: 22px;
-  background: rgba(5, 16, 10, 0.72);
-  box-shadow:
-    0 20px 70px rgba(0, 0, 0, 0.55),
-    inset 0 0 50px rgba(126, 153, 86, 0.07);
-  backdrop-filter: blur(8px);
+
+/* =========================
+   PARTICULAS
+========================= */
+
+.particles{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:1;
+
+    opacity:.7;
 }
 
-.symbol {
-  width: 72px;
-  height: 72px;
-  margin: 0 auto 22px;
-  border: 2px solid #d8c477;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #d8c477;
-  font-size: 34px;
-  box-shadow: 0 0 30px rgba(216, 196, 119, 0.12);
+.particles span{
+
+    position:absolute;
+
+    width:3px;
+
+    height:3px;
+
+    border-radius:50%;
+
+    background:#e8d28a;
+
+    box-shadow:0 0 8px #e8d28a;
+
+    animation:float 8s infinite ease-in-out;
 }
 
-.eyebrow {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  letter-spacing: 4px;
-  color: #b6b890;
-  margin-bottom: 10px;
+.particles span:nth-child(1){left:12%;top:20%;animation-delay:0s;}
+.particles span:nth-child(2){left:27%;top:65%;animation-delay:2s;}
+.particles span:nth-child(3){left:43%;top:31%;animation-delay:4s;}
+.particles span:nth-child(4){left:58%;top:72%;animation-delay:1s;}
+.particles span:nth-child(5){left:74%;top:26%;animation-delay:5s;}
+.particles span:nth-child(6){left:88%;top:55%;animation-delay:3s;}
+.particles span:nth-child(7){left:19%;top:82%;animation-delay:6s;}
+.particles span:nth-child(8){left:66%;top:90%;animation-delay:7s;}
+
+@keyframes float{
+
+    0%,100%{
+        transform:translateY(0);
+        opacity:.25;
+    }
+
+    50%{
+        transform:translateY(-25px);
+        opacity:1;
+    }
 }
 
-h1 {
-  font-size: clamp(26px, 7vw, 42px);
-  letter-spacing: 3px;
-  font-weight: normal;
-  color: #f5e7b2;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.container{
+
+    width:min(100%,620px);
+
+    position:relative;
+
+    z-index:2;
 }
 
-.subtitle {
-  margin-top: 8px;
-  color: #9eaa8d;
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  letter-spacing: 2px;
+
+/* =========================
+   CABECERA
+========================= */
+
+.header{
+
+    text-align:center;
+
+    padding:22px 10px 18px;
 }
 
-.divider {
-  width: 100px;
-  height: 1px;
-  margin: 28px auto;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    #d8c477,
-    transparent
-  );
+.triforce{
+
+    width:62px;
+
+    height:54px;
+
+    margin:0 auto 16px;
+
+    position:relative;
 }
 
-.countdown {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin: 10px 0 28px;
+.triforce::before,
+.triforce::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:0;
+    height:0;
+
+    border-left:31px solid transparent;
+    border-right:31px solid transparent;
+
+    border-bottom:54px solid rgba(221,195,112,.95);
+
+    filter:
+        drop-shadow(0 0 8px rgba(221,195,112,.35));
 }
 
-.unit {
-  padding: 12px 4px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.035);
-  border: 1px solid rgba(216,196,119,0.13);
+.triforce::before{
+
+    left:0;
+    top:0;
 }
 
-.number {
-  font-family: Arial, sans-serif;
-  font-size: clamp(27px, 8vw, 43px);
-  font-weight: 700;
-  color: #f1dfa0;
-  line-height: 1;
+.triforce::after{
+
+    left:31px;
+    top:27px;
+
+    transform:scale(.5);
+
+    transform-origin:top center;
+
+    border-bottom-color:#06110d;
 }
 
-.label {
-  margin-top: 7px;
-  font-family: Arial, sans-serif;
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  color: #89977d;
+
+/* =========================
+   TITULO
+========================= */
+
+.eyebrow{
+
+    font-family:Arial,sans-serif;
+
+    font-size:10px;
+
+    letter-spacing:5px;
+
+    color:#c5bd91;
+
+    margin-bottom:10px;
 }
 
-.date {
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  letter-spacing: 2px;
-  color: #c8c18f;
+h1{
+
+    font-size:clamp(29px,8vw,52px);
+
+    font-weight:normal;
+
+    letter-spacing:3px;
+
+    line-height:1.05;
+
+    color:#f5e7b2;
+
+    text-shadow:
+        0 2px 15px rgba(0,0,0,.9),
+        0 0 30px rgba(216,196,119,.12);
 }
 
-.message {
-  margin-top: 18px;
-  font-style: italic;
-  font-size: 15px;
-  color: #aeb59a;
+.subtitle{
+
+    margin-top:12px;
+
+    font-family:Arial,sans-serif;
+
+    font-size:12px;
+
+    letter-spacing:7px;
+
+    color:#b8b995;
 }
 
-.share {
-  margin-top: 28px;
-  padding: 12px 22px;
-  border: 1px solid rgba(216,196,119,0.5);
-  border-radius: 30px;
-  background: rgba(216,196,119,0.08);
-  color: #e5d394;
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  letter-spacing: 1.5px;
-  cursor: pointer;
+.ornament{
+
+    width:180px;
+
+    height:1px;
+
+    margin:24px auto;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #d8c477,
+            transparent
+        );
+
+    position:relative;
 }
 
-.share:active {
-  transform: scale(0.97);
+.ornament::after{
+
+    content:"◆";
+
+    position:absolute;
+
+    left:50%;
+
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        rotate(45deg);
+
+    color:#d8c477;
+
+    font-size:8px;
+
+    background:transparent;
 }
 
-.footer {
-  margin-top: 25px;
-  font-family: Arial, sans-serif;
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  color: #596653;
+
+/* =========================
+   FRASE
+========================= */
+
+.quote{
+
+    text-align:center;
+
+    font-size:14px;
+
+    font-style:italic;
+
+    letter-spacing:2px;
+
+    color:#c7c09d;
+
+    margin-bottom:25px;
+
+    text-shadow:0 2px 8px #000;
 }
 
-@media (max-width: 380px) {
-  .card {
-    padding: 30px 14px 25px;
-  }
 
-  .countdown {
-    gap: 5px;
-  }
+/* =========================
+   CONTADOR
+========================= */
 
-  .number {
-    font-size: 27px;
-  }
+.countdown{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:7px;
+
+    margin-bottom:22px;
 }
+
+.unit{
+
+    position:relative;
+
+    padding:17px 4px 14px;
+
+    text-align:center;
+
+    border:1px solid rgba(216,196,119,.45);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(7,27,17,.88),
+            rgba(3,14,9,.76)
+        );
+
+    box-shadow:
+
+        inset 0 0 20px rgba(216,196,119,.035),
+
+        0 8px 30px rgba(0,0,0,.35);
+
+    clip-path:
+
+        polygon(
+            8px 0,
+            calc(100% - 8px) 0,
+            100% 8px,
+            100% calc(100% - 8px),
+            calc(100% - 8px) 100%,
+            8px 100%,
+            0 calc(100% - 8px),
+            0 8px
+        );
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.unit::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:4px;
+    left:7px;
+    right:7px;
+
+    height:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(216,196,119,.6),
+            transparent
+        );
+}
+
+.number{
+
+    font-family:Arial,sans-serif;
+
+    font-size:clamp(27px,8vw,48px);
+
+    font-weight:700;
+
+    line-height:1;
+
+    color:#f1dfa0;
+
+    text-shadow:
+
+        0 0 15px rgba(241,223,160,.18);
+}
+
+.label{
+
+    margin-top:9px;
+
+    font-family:Arial,sans-serif;
+
+    font-size:8px;
+
+    letter-spacing:1.5px;
+
+    color:#929b84;
+}
+
+
+/* =========================
+   ANIMACION NUMEROS
+========================= */
+
+.tick{
+
+    animation:numberTick .35s ease;
+}
+
+@keyframes numberTick{
+
+    0%{
+        transform:translateY(-3px);
+        opacity:.55;
+    }
+
+    100%{
+        transform:translateY(0);
+        opacity:1;
+    }
+}
+
+
+/* =========================
+   FECHA
+========================= */
+
+.date{
+
+    text-align:center;
+
+    font-family:Arial,sans-serif;
+
+    font-size:13px;
+
+    letter-spacing:4px;
+
+    color:#e0d29a;
+
+    margin:20px 0 10px;
+
+    text-shadow:0 2px 8px #000;
+}
+
+.message{
+
+    text-align:center;
+
+    font-size:15px;
+
+    font-style:italic;
+
+    color:#aeb59a;
+
+    margin-bottom:25px;
+}
+
+
+/* =========================
+   BOTON
+========================= */
+
+.share{
+
+    display:block;
+
+    margin:0 auto;
+
+    padding:13px 24px;
+
+    border:1px solid rgba(216,196,119,.65);
+
+    border-radius:30px;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(216,196,119,.13),
+            rgba(216,196,119,.04)
+        );
+
+    color:#eadb9f;
+
+    font-family:Arial,sans-serif;
+
+    font-size:11px;
+
+    letter-spacing:2px;
+
+    cursor:pointer;
+
+    transition:
+        .25s ease;
+}
+
+.share:hover{
+
+    background:rgba(216,196,119,.18);
+
+    box-shadow:
+        0 0 25px rgba(216,196,119,.12);
+}
+
+.share:active{
+
+    transform:scale(.96);
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+.menu{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:9px;
+
+    margin-top:34px;
+}
+
+.menu-item{
+
+    min-height:78px;
+
+    border:1px solid rgba(216,196,119,.28);
+
+    background:
+        rgba(3,14,9,.68);
+
+    border-radius:12px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    color:#d8c477;
+
+    font-family:Arial,sans-serif;
+
+    font-size:9px;
+
+    letter-spacing:2px;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+}
+
+.menu-icon{
+
+    font-family:Georgia,serif;
+
+    font-size:22px;
+
+    color:#e3d08b;
+}
+
+.menu-item:active{
+
+    transform:scale(.96);
+
+    background:
+        rgba(216,196,119,.10);
+}
+
+
+/* =========================
+   PIE
+========================= */
+
+.footer{
+
+    text-align:center;
+
+    margin-top:35px;
+
+    font-family:Arial,sans-serif;
+
+    font-size:8px;
+
+    letter-spacing:3px;
+
+    color:#71806d;
+}
+
+.footer::before{
+
+    content:"";
+
+    display:block;
+
+    width:120px;
+
+    height:1px;
+
+    margin:0 auto 18px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(216,196,119,.45),
+            transparent
+        );
+}
+
+
+/* =========================
+   PANTALLAS PEQUEÑAS
+========================= */
+
+@media(max-width:390px){
+
+    .app{
+        padding-left:10px;
+        padding-right:10px;
+    }
+
+    .countdown{
+        gap:4px;
+    }
+
+    .unit{
+        padding:14px 2px 12px;
+    }
+
+    .number{
+        font-size:26px;
+    }
+
+    .label{
+        font-size:7px;
+        letter-spacing:1px;
+    }
+
+    h1{
+        letter-spacing:2px;
+    }
+
+    .subtitle{
+        letter-spacing:5px;
+    }
+}
+
+
+/* =========================
+   TABLET / FOLD ABIERTO
+========================= */
+
+@media(min-width:700px){
+
+    .app{
+        padding-top:45px;
+        padding-bottom:60px;
+    }
+
+    .container{
+        max-width:680px;
+    }
+
+    .countdown{
+        gap:12px;
+    }
+
+    .unit{
+        padding-top:22px;
+        padding-bottom:19px;
+    }
+}
+
 </style>
 </head>
+
 
 <body>
 
 <div class="app">
 
-  <main class="card">
-
-    <div class="symbol">♪</div>
-
-    <div class="eyebrow">THE LEGEND OF ZELDA</div>
-
-    <h1>OCARINA OF TIME</h1>
-
-    <div class="subtitle">REMAKE</div>
-
-    <div class="divider"></div>
-
-    <section class="countdown">
-
-      <div class="unit">
-        <div class="number" id="days">--</div>
-        <div class="label">DÍAS</div>
-      </div>
-
-      <div class="unit">
-        <div class="number" id="hours">--</div>
-        <div class="label">HORAS</div>
-      </div>
-
-      <div class="unit">
-        <div class="number" id="minutes">--</div>
-        <div class="label">MINUTOS</div>
-      </div>
-
-      <div class="unit">
-        <div class="number" id="seconds">--</div>
-        <div class="label">SEGUNDOS</div>
-      </div>
-
-    </section>
-
-    <div class="date">5 · NOVIEMBRE · 2026</div>
-
-    <div class="message" id="message">
-      El tiempo se acerca...
+    <div class="particles">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
 
-    <button class="share" onclick="shareApp()">
-      COMPARTIR CUENTA ATRÁS
-    </button>
 
-    <div class="footer">
-      UNA PEQUEÑA ESPERA PARA UNA GRAN AVENTURA
-    </div>
+    <main class="container">
 
-  </main>
+
+        <header class="header">
+
+            <div class="triforce"></div>
+
+            <div class="eyebrow">
+                THE LEGEND OF ZELDA
+            </div>
+
+            <h1>
+                OCARINA OF TIME
+            </h1>
+
+            <div class="subtitle">
+                REMAKE
+            </div>
+
+        </header>
+
+
+        <div class="ornament"></div>
+
+
+        <div class="quote">
+            «El tiempo siempre fluye...»
+        </div>
+
+
+        <section class="countdown">
+
+            <div class="unit">
+                <div class="number" id="days">--</div>
+                <div class="label">DÍAS</div>
+            </div>
+
+            <div class="unit">
+                <div class="number" id="hours">--</div>
+                <div class="label">HORAS</div>
+            </div>
+
+            <div class="unit">
+                <div class="number" id="minutes">--</div>
+                <div class="label">MINUTOS</div>
+            </div>
+
+            <div class="unit">
+                <div class="number" id="seconds">--</div>
+                <div class="label">SEGUNDOS</div>
+            </div>
+
+        </section>
+
+
+        <div class="date">
+            5 · NOVIEMBRE · 2026
+        </div>
+
+
+        <div class="message" id="message">
+            El tiempo se acerca...
+        </div>
+
+
+        <button class="share" onclick="shareApp()">
+            COMPARTIR CUENTA ATRÁS
+        </button>
+
+
+        <nav class="menu">
+
+            <div class="menu-item">
+                <div class="menu-icon">✦</div>
+                NOTICIAS
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-icon">◇</div>
+                GALERÍA
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-icon">♪</div>
+                MÚSICA
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-icon">✧</div>
+                EXTRAS
+            </div>
+
+        </nav>
+
+
+        <footer class="footer">
+            HYRULE AWAITS
+        </footer>
+
+
+    </main>
 
 </div>
 
+
 <script>
 
-const releaseDate = new Date("2026-11-05T00:00:00");
+/* =========================
+   CUENTA ATRÁS
+========================= */
 
-function updateCountdown() {
+const releaseDate =
+    new Date("2026-11-05T00:00:00");
 
-  const now = new Date();
-  const difference = releaseDate - now;
 
-  if (difference <= 0) {
+function animateNumber(element){
 
-    document.getElementById("days").textContent = "0";
-    document.getElementById("hours").textContent = "00";
-    document.getElementById("minutes").textContent = "00";
-    document.getElementById("seconds").textContent = "00";
+    element.classList.remove("tick");
 
-    document.getElementById("message").textContent =
-      "¡La espera ha terminado!";
+    void element.offsetWidth;
 
-    return;
-  }
-
-  const totalSeconds = Math.floor(difference / 1000);
-
-  const days = Math.floor(totalSeconds / 86400);
-  const hours = Math.floor((totalSeconds % 86400) / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-
-  document.getElementById("days").textContent = days;
-  document.getElementById("hours").textContent =
-    String(hours).padStart(2, "0");
-
-  document.getElementById("minutes").textContent =
-    String(minutes).padStart(2, "0");
-
-  document.getElementById("seconds").textContent =
-    String(seconds).padStart(2, "0");
+    element.classList.add("tick");
 }
 
-async function shareApp() {
 
-  const text =
-    "⏳ Cuenta atrás para Ocarina of Time Remake: 5 de noviembre de 2026";
+function updateCountdown(){
 
-  if (navigator.share) {
+    const now = new Date();
 
-    try {
-      await navigator.share({
-        title: "OoT Countdown",
-        text: text,
-        url: window.location.href
-      });
-    } catch (error) {
-      // El usuario canceló el menú de compartir.
+    const difference =
+        releaseDate.getTime() - now.getTime();
+
+
+    if(difference <= 0){
+
+        document.getElementById("days").textContent = "0";
+
+        document.getElementById("hours").textContent = "00";
+
+        document.getElementById("minutes").textContent = "00";
+
+        document.getElementById("seconds").textContent = "00";
+
+        document.getElementById("message").textContent =
+            "¡La espera ha terminado!";
+
+        return;
     }
 
-  } else {
 
-    try {
+    const totalSeconds =
+        Math.floor(difference / 1000);
 
-      await navigator.clipboard.writeText(
-        text + "\n" + window.location.href
-      );
 
-      alert("Enlace copiado.");
+    const days =
+        Math.floor(totalSeconds / 86400);
 
-    } catch (error) {
 
-      alert("Copia el enlace de esta página para compartirla.");
+    const hours =
+        Math.floor(
+            (totalSeconds % 86400) / 3600
+        );
+
+
+    const minutes =
+        Math.floor(
+            (totalSeconds % 3600) / 60
+        );
+
+
+    const seconds =
+        totalSeconds % 60;
+
+
+    const values = {
+
+        days: days,
+
+        hours: String(hours).padStart(2,"0"),
+
+        minutes: String(minutes).padStart(2,"0"),
+
+        seconds: String(seconds).padStart(2,"0")
+
+    };
+
+
+    Object.keys(values).forEach(id => {
+
+        const element =
+            document.getElementById(id);
+
+        const newValue =
+            String(values[id]);
+
+
+        if(element.textContent !== newValue){
+
+            element.textContent = newValue;
+
+            animateNumber(element);
+        }
+
+    });
+
+
+    if(days <= 1){
+
+        document.getElementById("message").textContent =
+            "Mañana comienza la aventura...";
+
+    }
+    else if(days <= 7){
+
+        document.getElementById("message").textContent =
+            "La espera está llegando a su fin...";
+
+    }
+    else if(days <= 30){
+
+        document.getElementById("message").textContent =
+            "El momento se acerca...";
+
+    }
+    else{
+
+        document.getElementById("message").textContent =
+            "El tiempo se acerca...";
 
     }
 
-  }
 }
+
+
+/* =========================
+   COMPARTIR
+========================= */
+
+async function shareApp(){
+
+    const text =
+        "⏳ Cuenta atrás para Ocarina of Time Remake: 5 de noviembre de 2026";
+
+
+    if(navigator.share){
+
+        try{
+
+            await navigator.share({
+
+                title:"OoT Countdown",
+
+                text:text,
+
+                url:window.location.href
+
+            });
+
+        }
+        catch(error){}
+
+    }
+    else{
+
+        try{
+
+            await navigator.clipboard.writeText(
+
+                text +
+                "\n" +
+                window.location.href
+
+            );
+
+            alert("Enlace copiado.");
+
+        }
+        catch(error){
+
+            alert(
+                "Copia el enlace de esta página para compartirla."
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================
+   INICIAR
+========================= */
 
 updateCountdown();
 
-setInterval(updateCountdown, 1000);
+setInterval(updateCountdown,1000);
 
-</script>
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js");
-  });
+
+/* =========================
+   SERVICE WORKER
+========================= */
+
+if("serviceWorker" in navigator){
+
+    window.addEventListener("load",() => {
+
+        navigator.serviceWorker.register(
+            "./service-worker.js"
+        );
+
+    });
+
 }
+
 </script>
 
 </body>
