@@ -5,8 +5,8 @@ const FILES_TO_CACHE = [
   "./index.html",
   "./manifest.json",
   "./hyrule-bg.png",
-  "./icon-192.png",
-  "./icon-512.png"
+  "./icon-192-shield.png",
+  "./icon-512-shield.png"
 ];
 
 self.addEventListener("install", event => {
