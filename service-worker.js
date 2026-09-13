@@ -1,4 +1,4 @@
-const CACHE_NAME = "oot-countdown-v2";
+const CACHE_NAME = "oot-countdown-v3";
 
 const FILES_TO_CACHE = [
   "./",
