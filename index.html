@@ -306,97 +306,96 @@ body {
    CUENTA ATRÁS
 ===================================================== */
 
-.countdown-area {
+const targetDate = Date.UTC(
+    2026,
+    10,
+    5,
+    0,
+    0,
+    0
+);
 
-    width: 100%;
-    max-width: 900px;
+function updateCountdown() {
 
-    margin-top: 35px;
+    const now = Date.now();
 
-    text-align: center;
-}
+    const difference = targetDate - now;
 
-.date {
+    const daysElement =
+        document.getElementById("days");
 
-    font-size: clamp(13px, 3vw, 17px);
+    const hoursElement =
+        document.getElementById("hours");
 
-    letter-spacing: 7px;
+    const minutesElement =
+        document.getElementById("minutes");
 
-    color: #d5bd7b;
+    const secondsElement =
+        document.getElementById("seconds");
 
-    margin-bottom: 17px;
 
-    text-transform: uppercase;
-}
+    if (difference <= 0) {
 
-.countdown {
+        daysElement.textContent = "000";
+        hoursElement.textContent = "00";
+        minutesElement.textContent = "00";
+        secondsElement.textContent = "00";
 
-    display: grid;
+        return;
+    }
 
-    grid-template-columns:
-        repeat(4, minmax(60px, 1fr));
 
-    gap: clamp(8px, 2vw, 18px);
+    const totalSeconds =
+        Math.floor(difference / 1000);
 
-    width: 100%;
-}
 
-.time-box {
-
-    min-height: 100px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    border:
-        1px solid
-        rgba(215,185,105,0.38);
-
-    border-radius: 8px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(4,15,10,0.75),
-            rgba(1,5,4,0.9)
+    const days =
+        Math.floor(
+            totalSeconds / 86400
         );
 
-    box-shadow:
-        inset 0 0 25px rgba(0,0,0,0.5),
-        0 5px 25px rgba(0,0,0,0.4);
 
-    backdrop-filter: blur(5px);
+    const hours =
+        Math.floor(
+            (totalSeconds % 86400) / 3600
+        );
+
+
+    const minutes =
+        Math.floor(
+            (totalSeconds % 3600) / 60
+        );
+
+
+    const seconds =
+        totalSeconds % 60;
+
+
+    daysElement.textContent =
+        String(days).padStart(3, "0");
+
+    hoursElement.textContent =
+        String(hours).padStart(2, "0");
+
+    minutesElement.textContent =
+        String(minutes).padStart(2, "0");
+
+    secondsElement.textContent =
+        String(seconds).padStart(2, "0");
 }
 
-.number {
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+/* Primera actualización inmediata */
 
-    font-size: clamp(30px, 8vw, 62px);
+updateCountdown();
 
-    line-height: 1;
 
-    color: #ead79d;
+/* Actualización cada segundo */
 
-    text-shadow:
-        0 0 12px rgba(230,195,100,0.28);
-}
-
-.label {
-
-    margin-top: 9px;
-
-    font-size: 10px;
-
-    letter-spacing: 3px;
-
-    color: rgba(230,215,175,0.7);
-
-    text-transform: uppercase;
+setInterval(
+    updateCountdown,
+    1000
+);
 }
 
 /* =====================================================
