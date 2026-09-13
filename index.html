@@ -1,1988 +1,1675 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <meta name="theme-color" content="#06110d">
-
-<meta name="description"
-content="Cuenta atrás para The Legend of Zelda: Ocarina of Time Remake">
+<meta name="description" content="Cuenta atrás para The Legend of Zelda: Ocarina of Time Remake">
 
 <link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192-shield.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./icon-512-shield.png">
+<link rel="apple-touch-icon" href="./icon-192-shield.png">
 
-<link rel="icon"
-type="image/png"
-sizes="192x192"
-href="./icon-192-shield.png">
-
-<link rel="icon"
-type="image/png"
-sizes="512x512"
-href="./icon-512-shield.png">
-
-<link rel="apple-touch-icon"
-href="./icon-192-shield.png">
-
-<meta name="mobile-web-app-capable"
-content="yes">
-
-<meta name="application-name"
-content="OoT Countdown">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="OoT Countdown">
 
 <title>OoT Countdown</title>
 
-
 <style>
 
-/* =====================================================
-   BASE
-===================================================== */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 html,
-body {
-    width: 100%;
-    min-height: 100%;
+body{
+  width:100%;
+  min-height:100%;
 }
 
-body {
-
-    background: #020604;
-
-    color: #f2e6c5;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    overflow-x: hidden;
+body{
+  background:#020604;
+  color:#f2e6c5;
+  font-family:Georgia,"Times New Roman",serif;
+  overflow-x:hidden;
 }
 
-
-/* =====================================================
+/* =========================
    FONDO
-===================================================== */
+========================= */
 
-.background {
+.background{
+  position:fixed;
+  inset:0;
+  z-index:-20;
 
-    position: fixed;
+  background-image:
+    linear-gradient(
+      rgba(0,0,0,.35),
+      rgba(0,3,2,.78)
+    ),
+    url("./hyrule-bg.png");
 
-    inset: 0;
-
-    z-index: -20;
-
-    background-image:
-        linear-gradient(
-            rgba(0,0,0,0.35),
-            rgba(0,3,2,0.78)
-        ),
-        url("./hyrule-bg.png");
-
-    background-size: cover;
-
-    background-position: center;
-
-    background-repeat: no-repeat;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
 }
 
+.background:after{
+  content:"";
+  position:absolute;
+  inset:0;
 
-.background::after {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    background:
-        radial-gradient(
-            ellipse at center,
-            transparent 15%,
-            rgba(0,0,0,0.22) 60%,
-            rgba(0,0,0,0.72) 100%
-        );
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 15%,
+      rgba(0,0,0,.22) 60%,
+      rgba(0,0,0,.72) 100%
+    );
 }
 
+.ambient-glow{
+  position:fixed;
 
-/* =====================================================
-   BRILLO AMBIENTAL
-===================================================== */
+  width:500px;
+  height:500px;
 
-.ambient-glow {
+  left:50%;
+  top:42%;
 
-    position: fixed;
+  transform:translate(-50%,-50%);
 
-    width: 500px;
-    height: 500px;
+  background:
+    radial-gradient(
+      circle,
+      rgba(226,191,92,.10),
+      transparent 70%
+    );
 
-    left: 50%;
-    top: 42%;
+  filter:blur(20px);
 
-    transform:
-        translate(-50%, -50%);
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(226,191,92,0.10),
-            transparent 70%
-        );
-
-    filter: blur(20px);
-
-    pointer-events: none;
-
-    z-index: -10;
+  pointer-events:none;
+  z-index:-10;
 }
 
+/* =========================
+   LOGO
+   SIN DESTELLO
+========================= */
 
-/* =====================================================
-   LOGO + DESTELLO DORADO
-===================================================== */
+.logo-wrap{
+  position:relative;
 
-.logo-wrap {
+  display:inline-block;
 
-    position: relative;
+  width:min(88vw,680px);
 
-    display: inline-block;
+  overflow:visible;
 
-    width: min(92vw, 680px);
-
-    overflow: hidden;
-
-    border-radius: 10px;
-
-    animation:
-        logoIntro 1.2s ease-out;
+  animation:logoIntro 1.2s ease-out;
 }
 
+.logo{
+  display:block;
 
-.logo {
+  width:100%;
+  height:auto;
 
-    display: block;
+  max-height:none;
 
-    width: 100%;
+  object-fit:contain;
 
-    height: auto;
-
-    max-height: 250px;
-
-    object-fit: contain;
-
-    filter:
-        drop-shadow(0 6px 10px rgba(0,0,0,0.9))
-        drop-shadow(0 0 20px rgba(220,185,80,0.18));
+  filter:
+    drop-shadow(0 6px 10px rgba(0,0,0,.9))
+    drop-shadow(0 0 20px rgba(220,185,80,.18));
 }
 
+@keyframes logoIntro{
 
-/*
-   El destello atraviesa el logo
-   una sola vez al entrar.
-*/
+  from{
+    opacity:0;
+    transform:translateY(-15px) scale(.96);
+  }
 
-.logo-wrap::after {
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
 
-    content: "";
-
-    position: absolute;
-
-    top: -20%;
-
-    left: -65%;
-
-    width: 28%;
-
-    height: 140%;
-
-    transform:
-        rotate(18deg);
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,239,169,0.15),
-            rgba(255,220,100,0.75),
-            rgba(255,245,190,0.18),
-            transparent
-        );
-
-    filter:
-        blur(5px);
-
-    pointer-events: none;
-
-    animation:
-        logoShimmer 2.2s ease-out 0.8s 1;
 }
 
-
-@keyframes logoIntro {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(-15px)
-            scale(0.96);
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-
-@keyframes logoShimmer {
-
-    from {
-        left: -65%;
-        opacity: 0;
-    }
-
-    20% {
-        opacity: 1;
-    }
-
-    75% {
-        opacity: 0.9;
-    }
-
-    to {
-        left: 145%;
-        opacity: 0;
-    }
-}
-
-
-/* =====================================================
+/* =========================
    HERO
-===================================================== */
+========================= */
 
-.hero {
+.hero{
+  width:100%;
+  max-width:900px;
 
-    width: 100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 
-    max-width: 900px;
+  text-align:center;
 
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    text-align: center;
-
-    padding-top: 15px;
+  padding-top:15px;
 }
 
+.subtitle{
+  margin-top:3px;
 
-.subtitle {
+  color:#ead9a8;
 
-    margin-top: 3px;
+  font-size:clamp(18px,4.5vw,28px);
 
-    color: #ead9a8;
+  font-style:italic;
 
-    font-size:
-        clamp(18px, 4.5vw, 28px);
+  letter-spacing:2px;
 
-    font-style: italic;
-
-    letter-spacing: 2px;
-
-    text-shadow:
-        0 2px 8px rgba(0,0,0,0.9),
-        0 0 15px rgba(225,190,90,0.18);
+  text-shadow:
+    0 2px 8px rgba(0,0,0,.9),
+    0 0 15px rgba(225,190,90,.18);
 }
 
-
-/* =====================================================
+/* =========================
    NAVI
-===================================================== */
+========================= */
 
-#navi {
+#navi{
 
-    position: fixed;
+  position:fixed;
 
-    width:
-        clamp(70px, 17vw, 105px);
+  width:clamp(72px,13vw,105px);
 
-    height: auto;
+  height:auto;
 
-    left: 0;
+  left:0;
+  top:0;
 
-    top: 0;
+  z-index:15;
 
-    z-index: 15;
+  pointer-events:none;
 
-    pointer-events: none;
+  display:block;
+  visibility:visible;
+  opacity:1;
 
-    filter:
-        drop-shadow(0 0 7px rgba(80,200,255,0.75))
-        drop-shadow(0 0 15px rgba(50,160,255,0.35));
+  filter:
+    drop-shadow(0 0 7px rgba(80,200,255,.75))
+    drop-shadow(0 0 15px rgba(50,160,255,.35));
 
-    will-change:
-        transform,
-        left,
-        top;
+  will-change:
+    transform,
+    left,
+    top;
 }
 
+/* =========================
+   DESTELLOS DE NAVI
+========================= */
 
-/* =====================================================
-   DESTELLOS QUE DEJA NAVI
-===================================================== */
+.navi-spark{
 
-.navi-spark {
+  position:fixed;
 
-    position: fixed;
+  width:4px;
+  height:4px;
 
-    width: 4px;
+  border-radius:50%;
 
-    height: 4px;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,1) 0%,
+      rgba(150,225,255,.9) 35%,
+      rgba(90,180,255,.2) 70%,
+      transparent 100%
+    );
 
-    border-radius: 50%;
+  pointer-events:none;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,1) 0%,
-            rgba(150,225,255,0.9) 35%,
-            rgba(90,180,255,0.2) 70%,
-            transparent 100%
-        );
+  z-index:14;
 
-    pointer-events: none;
-
-    z-index: 14;
-
-    animation:
-        sparkFade 0.9s ease-out forwards;
+  animation:
+    sparkFade .9s ease-out forwards;
 }
 
+@keyframes sparkFade{
 
-@keyframes sparkFade {
+  0%{
+    opacity:.95;
+    transform:scale(1.4);
+  }
 
-    0% {
+  100%{
+    opacity:0;
+    transform:
+      scale(.1)
+      translateY(8px);
+  }
 
-        opacity: 0.95;
-
-        transform:
-            scale(1.4);
-    }
-
-    100% {
-
-        opacity: 0;
-
-        transform:
-            scale(0.1)
-            translateY(8px);
-    }
 }
 
-
-/* =====================================================
+/* =========================
    LUCIÉRNAGAS
-===================================================== */
+========================= */
 
-.firefly {
+.firefly{
 
-    position: fixed;
+  position:fixed;
 
-    width: 3px;
+  width:3px;
+  height:3px;
 
-    height: 3px;
+  border-radius:50%;
 
-    border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,245,185,1),
+      rgba(225,190,85,.6) 35%,
+      transparent 75%
+    );
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,245,185,1),
-            rgba(225,190,85,0.6) 35%,
-            transparent 75%
-        );
+  box-shadow:
+    0 0 5px rgba(245,220,120,.55);
 
-    box-shadow:
-        0 0 5px rgba(245,220,120,0.55);
+  pointer-events:none;
 
-    pointer-events: none;
+  z-index:2;
 
-    z-index: 2;
-
-    animation:
-        fireflyFloat
-        var(--duration)
-        ease-in-out
-        infinite;
+  animation:
+    fireflyFloat var(--duration)
+    ease-in-out infinite;
 }
 
-
-@keyframes fireflyFloat {
-
-    0% {
-
-        opacity: 0;
-
-        transform:
-            translate(0,0)
-            scale(0.5);
-    }
-
-    20% {
-
-        opacity:
-            var(--brightness);
-    }
-
-    50% {
-
-        transform:
-            translate(
-                var(--move-x),
-                var(--move-y)
-            )
-            scale(1);
-    }
-
-    75% {
-
-        opacity:
-            var(--brightness);
-    }
-
-    100% {
-
-        opacity: 0;
-
-        transform:
-            translate(
-                calc(var(--move-x) * -0.5),
-                calc(var(--move-y) * -0.5)
-            )
-            scale(0.4);
-    }
-}
-
-
-/* =====================================================
-   BOTÓN DE MÚSICA
-===================================================== */
-
-.music-button {
-
-    position: fixed;
-
-    top: 16px;
-
-    right: 16px;
-
-    z-index: 50;
-
-    width: 44px;
-
-    height: 44px;
-
-    border-radius: 50%;
-
-    border:
-        1px solid
-        rgba(220,190,105,0.55);
-
-    background:
-        rgba(3,12,8,0.72);
-
-    color: #e5cf91;
-
-    font-size: 20px;
-
-    cursor: pointer;
-
-    backdrop-filter: blur(6px);
-
-    box-shadow:
-        0 4px 18px rgba(0,0,0,0.4);
-
-    transition:
-        0.25s ease;
-}
-
-
-.music-button.playing {
-
-    color: #fff0b5;
-
-    border-color:
-        rgba(240,210,120,0.9);
-
-    box-shadow:
-        0 0 18px
-        rgba(220,190,90,0.3);
-}
-
-
-/* =====================================================
-   CONTENEDOR
-===================================================== */
-
-.page {
-
-    width: 100%;
-
-    min-height: 100vh;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    padding:
-        max(25px, env(safe-area-inset-top))
-        16px
-        max(25px, env(safe-area-inset-bottom));
-}
-
-
-/* =====================================================
-   CUENTA ATRÁS
-===================================================== */
-
-.countdown-section {
-
-    width: 100%;
-
-    max-width: 900px;
-
-    margin-top: 28px;
-
-    text-align: center;
-}
-
-
-.date {
-
-    color: #d9c486;
-
-    font-size:
-        clamp(12px, 3vw, 17px);
-
-    letter-spacing:
-        clamp(3px, 1.3vw, 7px);
-
-    margin-bottom: 15px;
-}
-
-
-.countdown {
-
-    width: 100%;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
-    gap:
-        clamp(6px, 1.8vw, 16px);
-}
-
-
-.time-box {
-
-    min-width: 0;
-
-    min-height:
-        clamp(88px, 18vw, 125px);
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 8px;
-
-    border:
-        1px solid
-        rgba(220,190,105,0.42);
-
-    border-radius: 9px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(5,18,12,0.82),
-            rgba(1,6,4,0.92)
-        );
-
-    box-shadow:
-        inset 0 0 25px rgba(0,0,0,0.45),
-        0 7px 25px rgba(0,0,0,0.35);
-
-    backdrop-filter:
-        blur(5px);
-}
-
-
-.number {
-
-    color: #f0dda4;
-
-    font-size:
-        clamp(28px, 7vw, 60px);
-
-    line-height: 1;
-
-    white-space: nowrap;
-
-    text-shadow:
-        0 0 12px
-        rgba(235,205,120,0.22);
-}
-
-
-.label {
-
-    margin-top: 10px;
-
-    color:
-        rgba(230,215,175,0.72);
-
-    font-size:
-        clamp(7px, 1.8vw, 11px);
-
-    letter-spacing:
-        clamp(1px, 0.7vw, 3px);
-
-    text-transform: uppercase;
-
-    white-space: nowrap;
-}
-
-
-/* =====================================================
-   COMPARTIR
-===================================================== */
-
-.share-button {
-
-    margin-top: 24px;
-
-    padding:
-        13px 28px;
-
-    min-width: 230px;
-
-    border:
-        1px solid
-        rgba(220,190,105,0.48);
-
-    border-radius: 40px;
-
-    background:
-        rgba(3,12,8,0.65);
-
-    color: #e4d199;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-    cursor: pointer;
-
-    backdrop-filter:
-        blur(5px);
-
-    transition:
-        0.25s ease;
-}
-
-
-.share-button:hover {
-
-    border-color: #e7cc7b;
-
-    background:
-        rgba(50,45,20,0.45);
-
-    box-shadow:
-        0 0 20px
-        rgba(220,190,100,0.16);
-}
-
-
-.share-button:active {
-
-    transform: scale(0.96);
-}
-
-
-/* =====================================================
-   MENÚ
-===================================================== */
-
-.menu {
-
-    width: 100%;
-
-    max-width: 900px;
-
-    margin-top: 40px;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 13px;
-}
-
-
-.menu-button {
-
-    min-height: 105px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border:
-        1px solid
-        rgba(210,180,95,0.28);
-
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(3,15,9,0.78),
-            rgba(0,5,3,0.90)
-        );
-
-    color: #dbc78f;
-
-    cursor: pointer;
-
-    transition:
-        0.25s ease;
-
-    backdrop-filter:
-        blur(5px);
-}
-
-
-.menu-button:hover {
+@keyframes fireflyFloat{
+
+  0%{
+    opacity:0;
+    transform:
+      translate(0,0)
+      scale(.5);
+  }
+
+  20%{
+    opacity:var(--brightness);
+  }
+
+  50%{
+    transform:
+      translate(var(--move-x),var(--move-y))
+      scale(1);
+  }
+
+  75%{
+    opacity:var(--brightness);
+  }
+
+  100%{
+    opacity:0;
 
     transform:
-        translateY(-3px);
+      translate(
+        calc(var(--move-x)*-.5),
+        calc(var(--move-y)*-.5)
+      )
+      scale(.4);
+  }
 
-    border-color:
-        rgba(225,195,110,0.65);
-
-    box-shadow:
-        0 8px 25px
-        rgba(0,0,0,0.4);
 }
 
+/* =========================
+   BOTÓN MÚSICA
+========================= */
 
-.menu-icon {
+.music-button{
 
-    font-size: 27px;
+  position:fixed;
 
-    margin-bottom: 9px;
+  top:16px;
+  right:16px;
 
-    color: #dfc986;
+  z-index:50;
+
+  width:44px;
+  height:44px;
+
+  border-radius:50%;
+
+  border:
+    1px solid rgba(220,190,105,.55);
+
+  background:
+    rgba(3,12,8,.72);
+
+  color:#e5cf91;
+
+  font-size:20px;
+
+  cursor:pointer;
+
+  backdrop-filter:blur(6px);
+
+  box-shadow:
+    0 4px 18px rgba(0,0,0,.4);
+
+  transition:.25s ease;
 }
 
+.music-button.playing{
 
-.menu-title {
+  color:#fff0b5;
 
-    font-size: 11px;
+  border-color:
+    rgba(240,210,120,.9);
 
-    letter-spacing: 4px;
-
-    text-transform: uppercase;
+  box-shadow:
+    0 0 18px rgba(220,190,90,.3);
 }
 
+/* =========================
+   CONTENIDO
+========================= */
 
-/* =====================================================
+.page{
+
+  width:100%;
+  min-height:100vh;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  padding:
+    max(25px,env(safe-area-inset-top))
+    16px
+    max(25px,env(safe-area-inset-bottom));
+}
+
+.countdown-section{
+
+  width:100%;
+  max-width:900px;
+
+  margin-top:28px;
+
+  text-align:center;
+}
+
+.date{
+
+  color:#d9c486;
+
+  font-size:
+    clamp(12px,3vw,17px);
+
+  letter-spacing:
+    clamp(3px,1.3vw,7px);
+
+  margin-bottom:15px;
+}
+
+.countdown{
+
+  width:100%;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
+  gap:
+    clamp(6px,1.8vw,16px);
+}
+
+.time-box{
+
+  min-width:0;
+
+  min-height:
+    clamp(88px,18vw,125px);
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:8px;
+
+  border:
+    1px solid rgba(220,190,105,.42);
+
+  border-radius:9px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(5,18,12,.82),
+      rgba(1,6,4,.92)
+    );
+
+  box-shadow:
+    inset 0 0 25px rgba(0,0,0,.45),
+    0 7px 25px rgba(0,0,0,.35);
+
+  backdrop-filter:blur(5px);
+}
+
+.number{
+
+  color:#f0dda4;
+
+  font-size:
+    clamp(28px,7vw,60px);
+
+  line-height:1;
+
+  white-space:nowrap;
+
+  text-shadow:
+    0 0 12px rgba(235,205,120,.22);
+}
+
+.label{
+
+  margin-top:10px;
+
+  color:
+    rgba(230,215,175,.72);
+
+  font-size:
+    clamp(7px,1.8vw,11px);
+
+  letter-spacing:
+    clamp(1px,.7vw,3px);
+
+  text-transform:uppercase;
+
+  white-space:nowrap;
+}
+
+/* =========================
+   COMPARTIR
+========================= */
+
+.share-button{
+
+  margin-top:24px;
+
+  padding:13px 28px;
+
+  min-width:230px;
+
+  border:
+    1px solid rgba(220,190,105,.48);
+
+  border-radius:40px;
+
+  background:
+    rgba(3,12,8,.65);
+
+  color:#e4d199;
+
+  font-family:
+    Georgia,"Times New Roman",serif;
+
+  font-size:11px;
+
+  letter-spacing:3px;
+
+  cursor:pointer;
+
+  backdrop-filter:blur(5px);
+
+  transition:.25s ease;
+}
+
+.share-button:hover{
+
+  border-color:#e7cc7b;
+
+  background:
+    rgba(50,45,20,.45);
+
+  box-shadow:
+    0 0 20px rgba(220,190,100,.16);
+}
+
+.share-button:active{
+
+  transform:scale(.96);
+}
+
+/* =========================
+   MENÚ
+========================= */
+
+.menu{
+
+  width:100%;
+  max-width:900px;
+
+  margin-top:40px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:13px;
+}
+
+.menu-button{
+
+  min-height:105px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  border:
+    1px solid rgba(210,180,95,.28);
+
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(3,15,9,.78),
+      rgba(0,5,3,.90)
+    );
+
+  color:#dbc78f;
+
+  cursor:pointer;
+
+  transition:.25s ease;
+
+  backdrop-filter:blur(5px);
+}
+
+.menu-button:hover{
+
+  transform:translateY(-3px);
+
+  border-color:
+    rgba(225,195,110,.65);
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.4);
+}
+
+.menu-icon{
+
+  font-size:27px;
+
+  margin-bottom:9px;
+
+  color:#dfc986;
+}
+
+.menu-title{
+
+  font-size:11px;
+
+  letter-spacing:4px;
+
+  text-transform:uppercase;
+}
+
+/* =========================
    MODAL
-===================================================== */
+========================= */
 
-.modal {
+.modal{
 
-    position: fixed;
+  position:fixed;
 
-    inset: 0;
+  inset:0;
 
-    z-index: 100;
+  z-index:100;
 
-    display: none;
+  display:none;
 
-    align-items: center;
+  align-items:center;
+  justify-content:center;
 
-    justify-content: center;
+  padding:20px;
 
-    padding: 20px;
+  background:
+    rgba(0,0,0,.78);
 
-    background:
-        rgba(0,0,0,0.78);
-
-    backdrop-filter:
-        blur(7px);
+  backdrop-filter:blur(7px);
 }
 
+.modal.active{
 
-.modal.active {
-
-    display: flex;
+  display:flex;
 }
 
+.modal-box{
 
-.modal-box {
+  width:100%;
+  max-width:500px;
 
-    width: 100%;
+  padding:30px 25px;
 
-    max-width: 500px;
+  border:
+    1px solid rgba(220,190,105,.45);
 
-    padding: 30px 25px;
+  border-radius:14px;
 
-    border:
-        1px solid
-        rgba(220,190,105,0.45);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(7,20,13,.98),
+      rgba(1,7,4,.99)
+    );
 
-    border-radius: 14px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(7,20,13,0.98),
-            rgba(1,7,4,0.99)
-        );
-
-    box-shadow:
-        0 20px 70px
-        rgba(0,0,0,0.7);
+  box-shadow:
+    0 20px 70px rgba(0,0,0,.7);
 }
 
+.modal-box h2{
 
-.modal-box h2 {
+  color:#e6d097;
 
-    color: #e6d097;
+  text-align:center;
 
-    text-align: center;
+  font-size:23px;
 
-    font-size: 23px;
+  letter-spacing:3px;
 
-    letter-spacing: 3px;
-
-    margin-bottom: 15px;
+  margin-bottom:15px;
 }
 
+.modal-box p{
 
-.modal-box p {
+  color:#cec5a7;
 
-    color: #cec5a7;
+  text-align:center;
 
-    text-align: center;
+  font-size:15px;
 
-    font-size: 15px;
-
-    line-height: 1.7;
+  line-height:1.7;
 }
 
+.close-button{
 
-.close-button {
+  display:block;
 
-    display: block;
+  margin:23px auto 0;
 
-    margin: 23px auto 0;
+  padding:10px 24px;
 
-    padding: 10px 24px;
+  border:
+    1px solid rgba(220,190,105,.42);
 
-    border:
-        1px solid
-        rgba(220,190,105,0.42);
+  border-radius:30px;
 
-    border-radius: 30px;
+  background:transparent;
 
-    background: transparent;
+  color:#dfcb91;
 
-    color: #dfcb91;
+  font-family:Georgia,serif;
 
-    font-family: Georgia, serif;
-
-    cursor: pointer;
+  cursor:pointer;
 }
 
+/* =========================
+   FOOTER
+========================= */
 
-/* =====================================================
-   PIE
-===================================================== */
+footer{
 
-footer {
+  margin-top:35px;
 
-    margin-top: 35px;
+  padding-bottom:20px;
 
-    padding-bottom: 20px;
+  text-align:center;
 
-    text-align: center;
+  color:
+    rgba(220,205,160,.42);
 
-    color:
-        rgba(220,205,160,0.42);
+  font-size:10px;
 
-    font-size: 10px;
-
-    letter-spacing: 4px;
+  letter-spacing:4px;
 }
 
+.fan{
 
-.fan {
+  margin-top:9px;
 
-    margin-top: 9px;
+  color:
+    rgba(220,205,160,.25);
 
-    color:
-        rgba(220,205,160,0.25);
+  font-size:8px;
 
-    font-size: 8px;
-
-    letter-spacing: 1.5px;
+  letter-spacing:1.5px;
 }
 
+/* =========================
+   MÓVIL / FOLD CERRADO
+========================= */
 
-/* =====================================================
-   MÓVIL
-===================================================== */
+@media(max-width:500px){
 
-@media (max-width: 500px) {
+  .page{
 
-    .page {
+    padding-left:12px;
+    padding-right:12px;
+  }
 
-        padding-left: 12px;
+  .hero{
 
-        padding-right: 12px;
-    }
+    padding-top:8px;
+  }
 
+  .logo-wrap{
 
-    .hero {
+    width:86vw;
 
-        padding-top: 8px;
-    }
+    max-height:none;
 
+    overflow:visible;
+  }
 
-    .logo-wrap {
+  .subtitle{
 
-        width: 94vw;
+    font-size:17px;
 
-        max-height: 175px;
-    }
+    letter-spacing:1.5px;
+  }
 
+  .countdown-section{
 
-    .subtitle {
+    margin-top:24px;
+  }
 
-        font-size: 17px;
+  .date{
 
-        letter-spacing: 1.5px;
-    }
+    font-size:10px;
 
+    letter-spacing:3.5px;
+  }
 
-    .countdown-section {
+  .countdown{
 
-        margin-top: 24px;
-    }
+    gap:5px;
+  }
 
+  .time-box{
 
-    .date {
+    min-height:82px;
 
-        font-size: 10px;
+    padding:5px;
+  }
 
-        letter-spacing: 3.5px;
-    }
+  .number{
 
+    font-size:
+      clamp(25px,8vw,38px);
+  }
 
-    .countdown {
+  .label{
 
-        gap: 5px;
-    }
+    font-size:7px;
 
+    letter-spacing:1px;
+  }
 
-    .time-box {
+  .share-button{
 
-        min-height: 82px;
+    min-width:215px;
 
-        padding: 5px;
-    }
+    padding:12px 20px;
 
+    font-size:10px;
+  }
 
-    .number {
+  .menu{
 
-        font-size:
-            clamp(25px, 8vw, 38px);
-    }
+    margin-top:28px;
 
+    gap:9px;
+  }
 
-    .label {
+  .menu-button{
 
-        font-size: 7px;
+    min-height:82px;
+  }
 
-        letter-spacing: 1px;
-    }
+  .menu-icon{
 
+    font-size:22px;
 
-    .share-button {
+    margin-bottom:7px;
+  }
 
-        min-width: 215px;
+  .menu-title{
 
-        padding: 12px 20px;
+    font-size:8px;
 
-        font-size: 10px;
-    }
+    letter-spacing:2px;
+  }
 
+  #navi{
 
-    .menu {
+    width:82px;
+  }
 
-        margin-top: 28px;
+  .music-button{
 
-        gap: 9px;
-    }
+    top:12px;
+    right:12px;
 
+    width:40px;
+    height:40px;
 
-    .menu-button {
+    font-size:18px;
+  }
 
-        min-height: 82px;
-    }
+  footer{
 
-
-    .menu-icon {
-
-        font-size: 22px;
-
-        margin-bottom: 7px;
-    }
-
-
-    .menu-title {
-
-        font-size: 8px;
-
-        letter-spacing: 2px;
-    }
-
-
-    #navi {
-
-        width: 75px;
-    }
-
-
-    .music-button {
-
-        top: 12px;
-
-        right: 12px;
-
-        width: 40px;
-
-        height: 40px;
-
-        font-size: 18px;
-    }
-
-
-    footer {
-
-        margin-top: 28px;
-    }
+    margin-top:28px;
+  }
 
 }
 
 </style>
-
 </head>
 
-
 <body>
-
 
 <div class="background"></div>
 
 <div class="ambient-glow"></div>
 
-
-<!-- =====================================================
-     MÚSICA
-===================================================== -->
-
 <audio
-    id="templeMusic"
-    src="./temple-of-time.mp3"
-    loop
-    preload="auto">
+  id="templeMusic"
+  src="./temple-of-time.mp3"
+  loop
+  preload="auto"
+  autoplay>
 </audio>
 
-
 <button
-    id="musicButton"
-    class="music-button"
-    aria-label="Activar música">
-
-    ♫
-
+  id="musicButton"
+  class="music-button"
+  aria-label="Activar o desactivar música">
+  ♫
 </button>
 
-
-<!-- =====================================================
-     NAVI
-===================================================== -->
-
 <img
-    id="navi"
-    src="./navi-clean.png"
-    alt=""
->
-
-
-<!-- =====================================================
-     CONTENIDO
-===================================================== -->
+  id="navi"
+  src="./navi-clean.png"
+  alt="">
 
 <main class="page">
 
-
-<section class="hero">
+  <section class="hero">
 
     <div class="logo-wrap">
 
-        <img
-            class="logo"
-            src="./oot-logo.png"
-            alt="The Legend of Zelda Ocarina of Time"
-        >
+      <img
+        class="logo"
+        src="./oot-logo.png"
+        alt="The Legend of Zelda Ocarina of Time">
 
     </div>
-
 
     <div class="subtitle">
-        «Vuelve la leyenda...»
+      «Vuelve la leyenda...»
     </div>
 
-</section>
+  </section>
 
 
-<section class="countdown-section">
-
+  <section class="countdown-section">
 
     <div class="date">
-        5 · NOVIEMBRE · 2026
+      5 · NOVIEMBRE · 2026
     </div>
-
 
     <div class="countdown">
 
+      <div class="time-box">
+        <div id="days" class="number">000</div>
+        <div class="label">Días</div>
+      </div>
 
-        <div class="time-box">
+      <div class="time-box">
+        <div id="hours" class="number">00</div>
+        <div class="label">Horas</div>
+      </div>
 
-            <div
-                id="days"
-                class="number">
-                000
-            </div>
+      <div class="time-box">
+        <div id="minutes" class="number">00</div>
+        <div class="label">Minutos</div>
+      </div>
 
-            <div class="label">
-                Días
-            </div>
-
-        </div>
-
-
-        <div class="time-box">
-
-            <div
-                id="hours"
-                class="number">
-                00
-            </div>
-
-            <div class="label">
-                Horas
-            </div>
-
-        </div>
-
-
-        <div class="time-box">
-
-            <div
-                id="minutes"
-                class="number">
-                00
-            </div>
-
-            <div class="label">
-                Minutos
-            </div>
-
-        </div>
-
-
-        <div class="time-box">
-
-            <div
-                id="seconds"
-                class="number">
-                00
-            </div>
-
-            <div class="label">
-                Segundos
-            </div>
-
-        </div>
-
+      <div class="time-box">
+        <div id="seconds" class="number">00</div>
+        <div class="label">Segundos</div>
+      </div>
 
     </div>
 
-
     <button
-        id="shareButton"
-        class="share-button">
-
-        COMPARTIR CUENTA ATRÁS
-
+      id="shareButton"
+      class="share-button">
+      COMPARTIR CUENTA ATRÁS
     </button>
 
+  </section>
 
-</section>
 
-
-<nav class="menu">
-
+  <nav class="menu">
 
     <button
-        class="menu-button"
-        data-title="Noticias"
-        data-text="Aquí reuniremos las noticias, anuncios y novedades más importantes relacionadas con Ocarina of Time Remake.">
+      class="menu-button"
+      data-title="Noticias"
+      data-text="Aquí reuniremos las noticias, anuncios y novedades más importantes relacionadas con Ocarina of Time Remake.">
 
-        <span class="menu-icon">✦</span>
-
-        <span class="menu-title">
-            Noticias
-        </span>
+      <span class="menu-icon">✦</span>
+      <span class="menu-title">Noticias</span>
 
     </button>
 
 
     <button
-        class="menu-button"
-        data-title="Galería"
-        data-text="Imágenes, capturas y material visual del regreso de la leyenda.">
+      class="menu-button"
+      data-title="Galería"
+      data-text="Imágenes, capturas y material visual del regreso de la leyenda.">
 
-        <span class="menu-icon">◇</span>
-
-        <span class="menu-title">
-            Galería
-        </span>
+      <span class="menu-icon">◇</span>
+      <span class="menu-title">Galería</span>
 
     </button>
 
 
     <button
-        class="menu-button"
-        data-title="Música"
-        data-text="Un espacio dedicado a la música y al sonido que acompañan esta nueva aventura.">
+      class="menu-button"
+      data-title="Música"
+      data-text="Un espacio dedicado a la música y al sonido que acompañan esta nueva aventura.">
 
-        <span class="menu-icon">♫</span>
-
-        <span class="menu-title">
-            Música
-        </span>
+      <span class="menu-icon">♫</span>
+      <span class="menu-title">Música</span>
 
     </button>
 
 
     <button
-        class="menu-button"
-        data-title="Extras"
-        data-text="Curiosidades, secretos, referencias y otros contenidos para los fans de Ocarina of Time.">
+      class="menu-button"
+      data-title="Extras"
+      data-text="Curiosidades, secretos, referencias y otros contenidos para los fans de Ocarina of Time.">
 
-        <span class="menu-icon">✧</span>
-
-        <span class="menu-title">
-            Extras
-        </span>
+      <span class="menu-icon">✧</span>
+      <span class="menu-title">Extras</span>
 
     </button>
 
+  </nav>
 
-</nav>
 
-
-<footer>
+  <footer>
 
     HYRULE AWAITS
 
     <div class="fan">
-        Proyecto fan no oficial · No afiliado con Nintendo
+      Proyecto fan no oficial · No afiliado con Nintendo
     </div>
 
-</footer>
-
+  </footer>
 
 </main>
 
 
-<!-- =====================================================
-     MODAL
-===================================================== -->
+<div id="modal" class="modal">
 
-<div
-    id="modal"
-    class="modal">
+  <div class="modal-box">
 
+    <h2 id="modalTitle">
+      Noticias
+    </h2>
 
-    <div class="modal-box">
+    <p id="modalText"></p>
 
+    <button
+      id="closeModal"
+      class="close-button">
+      CERRAR
+    </button>
 
-        <h2 id="modalTitle">
-            Noticias
-        </h2>
-
-
-        <p id="modalText">
-        </p>
-
-
-        <button
-            id="closeModal"
-            class="close-button">
-
-            CERRAR
-
-        </button>
-
-
-    </div>
+  </div>
 
 </div>
 
 
 <script>
 
-/* =====================================================
+/* =========================
    CUENTA ATRÁS
-===================================================== */
+========================= */
 
 const targetDate =
-    new Date(
-        "2026-11-05T00:00:00+01:00"
-    ).getTime();
-
+  new Date("2026-11-05T00:00:00+01:00").getTime();
 
 const daysElement =
-    document.getElementById("days");
+  document.getElementById("days");
 
 const hoursElement =
-    document.getElementById("hours");
+  document.getElementById("hours");
 
 const minutesElement =
-    document.getElementById("minutes");
+  document.getElementById("minutes");
 
 const secondsElement =
-    document.getElementById("seconds");
+  document.getElementById("seconds");
 
 
-function updateCountdown() {
+function updateCountdown(){
 
-    const difference =
-        targetDate - Date.now();
+  const difference =
+    targetDate - Date.now();
 
+  if(difference <= 0){
 
-    if (difference <= 0) {
+    daysElement.textContent="000";
+    hoursElement.textContent="00";
+    minutesElement.textContent="00";
+    secondsElement.textContent="00";
 
-        daysElement.textContent = "000";
-        hoursElement.textContent = "00";
-        minutesElement.textContent = "00";
-        secondsElement.textContent = "00";
+    return;
+  }
 
-        return;
-    }
+  const totalSeconds =
+    Math.floor(difference / 1000);
 
+  const days =
+    Math.floor(totalSeconds / 86400);
 
-    const totalSeconds =
-        Math.floor(
-            difference / 1000
-        );
+  const hours =
+    Math.floor(
+      (totalSeconds % 86400) / 3600
+    );
 
+  const minutes =
+    Math.floor(
+      (totalSeconds % 3600) / 60
+    );
 
-    const days =
-        Math.floor(
-            totalSeconds / 86400
-        );
-
-
-    const hours =
-        Math.floor(
-            (totalSeconds % 86400) / 3600
-        );
-
-
-    const minutes =
-        Math.floor(
-            (totalSeconds % 3600) / 60
-        );
+  const seconds =
+    totalSeconds % 60;
 
 
-    const seconds =
-        totalSeconds % 60;
+  daysElement.textContent =
+    String(days).padStart(3,"0");
 
+  hoursElement.textContent =
+    String(hours).padStart(2,"0");
 
-    daysElement.textContent =
-        String(days).padStart(3, "0");
+  minutesElement.textContent =
+    String(minutes).padStart(2,"0");
 
-    hoursElement.textContent =
-        String(hours).padStart(2, "0");
-
-    minutesElement.textContent =
-        String(minutes).padStart(2, "0");
-
-    secondsElement.textContent =
-        String(seconds).padStart(2, "0");
+  secondsElement.textContent =
+    String(seconds).padStart(2,"0");
 }
 
 
 updateCountdown();
 
 setInterval(
-    updateCountdown,
-    1000
+  updateCountdown,
+  1000
 );
 
 
-/* =====================================================
+/* =========================
    LUCIÉRNAGAS
-===================================================== */
+========================= */
 
-function createFireflies() {
+for(let i=0;i<26;i++){
 
-    for (
-        let i = 0;
-        i < 26;
-        i++
-    ) {
+  const firefly =
+    document.createElement("div");
 
-        const firefly =
-            document.createElement("div");
+  firefly.className =
+    "firefly";
 
+  firefly.style.left =
+    Math.random()*100+"vw";
 
-        firefly.className =
-            "firefly";
+  firefly.style.top =
+    Math.random()*100+"vh";
 
+  firefly.style.setProperty(
+    "--duration",
+    (5+Math.random()*8)+"s"
+  );
 
-        firefly.style.left =
-            Math.random() * 100 + "vw";
+  firefly.style.setProperty(
+    "--move-x",
+    (-35+Math.random()*70)+"px"
+  );
 
+  firefly.style.setProperty(
+    "--move-y",
+    (-45+Math.random()*90)+"px"
+  );
 
-        firefly.style.top =
-            Math.random() * 100 + "vh";
+  firefly.style.setProperty(
+    "--brightness",
+    (0.25+Math.random()*0.55)
+  );
 
+  firefly.style.animationDelay =
+    (-Math.random()*8)+"s";
 
-        firefly.style.setProperty(
-            "--duration",
-            (5 + Math.random() * 8) + "s"
-        );
-
-
-        firefly.style.setProperty(
-            "--move-x",
-            (-35 + Math.random() * 70) + "px"
-        );
-
-
-        firefly.style.setProperty(
-            "--move-y",
-            (-45 + Math.random() * 90) + "px"
-        );
-
-
-        firefly.style.setProperty(
-            "--brightness",
-            (0.25 + Math.random() * 0.55)
-        );
-
-
-        firefly.style.animationDelay =
-            (-Math.random() * 8) + "s";
-
-
-        document.body.appendChild(
-            firefly
-        );
-    }
+  document.body.appendChild(
+    firefly
+  );
 }
 
 
-createFireflies();
-
-
-/* =====================================================
+/* =========================
    NAVI
-===================================================== */
+========================= */
 
 const navi =
-    document.getElementById(
-        "navi"
-    );
+  document.getElementById("navi");
 
+let naviReady = false;
 
 let naviX =
-    window.innerWidth * 0.15;
-
+  window.innerWidth * .15;
 
 let naviY =
-    window.innerHeight * 0.30;
-
+  window.innerHeight * .30;
 
 let targetX =
-    window.innerWidth * 0.75;
-
+  window.innerWidth * .75;
 
 let targetY =
-    window.innerHeight * 0.55;
+  window.innerHeight * .55;
+
+let lastSpark = 0;
 
 
-let lastSpark =
-    0;
+navi.addEventListener(
+  "load",
+  () => {
+    naviReady = true;
+  }
+);
+
+navi.addEventListener(
+  "error",
+  () => {
+    naviReady = false;
+  }
+);
 
 
-function chooseNaviTarget() {
+function chooseNaviTarget(){
 
-    const margin = 30;
+  const margin = 30;
 
+  targetX =
+    margin +
+    Math.random() *
+    Math.max(
+      1,
+      window.innerWidth - 100
+    );
 
-    targetX =
-        margin +
-        Math.random() *
-        Math.max(
-            1,
-            window.innerWidth - 100
-        );
-
-
-    targetY =
-        100 +
-        Math.random() *
-        Math.max(
-            1,
-            window.innerHeight - 220
-        );
-}
-
-
-function animateNavi(time) {
-
-    const dx =
-        targetX - naviX;
-
-
-    const dy =
-        targetY - naviY;
-
-
-    const distance =
-        Math.sqrt(
-            dx * dx +
-            dy * dy
-        );
-
-
-    if (distance < 12) {
-
-        chooseNaviTarget();
-
-    } else {
-
-        const speed =
-            0.0015 *
-            distance;
-
-
-        naviX +=
-            dx * speed;
-
-        naviY +=
-            dy * speed;
-    }
-
-
-    const swayX =
-        Math.sin(time * 0.0023) * 8;
-
-
-    const swayY =
-        Math.cos(time * 0.0017) * 7;
-
-
-    const angle =
-        Math.atan2(
-            dy,
-            dx
-        ) * 180 / Math.PI;
-
-
-    navi.style.left =
-        naviX + "px";
-
-
-    navi.style.top =
-        naviY + "px";
-
-
-    navi.style.transform =
-        `translate(${swayX}px, ${swayY}px)
-         rotate(${angle * 0.12}deg)`;
-
-
-    /*
-       Creamos el destello detrás de Navi,
-       NO dentro de su PNG.
-    */
-
-    if (
-        time - lastSpark > 130
-    ) {
-
-        createNaviSpark();
-
-        lastSpark =
-            time;
-    }
-
-
-    requestAnimationFrame(
-        animateNavi
+  targetY =
+    100 +
+    Math.random() *
+    Math.max(
+      1,
+      window.innerHeight - 220
     );
 }
 
 
-function createNaviSpark() {
+function createNaviSpark(){
 
-    const spark =
-        document.createElement("div");
+  if(!naviReady){
+    return;
+  }
+
+  const spark =
+    document.createElement("div");
+
+  spark.className =
+    "navi-spark";
+
+  spark.style.left =
+    (
+      naviX +
+      35 +
+      Math.random()*30
+    )+"px";
+
+  spark.style.top =
+    (
+      naviY +
+      35 +
+      Math.random()*30
+    )+"px";
+
+  const size =
+    2 + Math.random()*4;
+
+  spark.style.width =
+    size+"px";
+
+  spark.style.height =
+    size+"px";
+
+  document.body.appendChild(
+    spark
+  );
+
+  setTimeout(
+    () => spark.remove(),
+    900
+  );
+}
 
 
-    spark.className =
-        "navi-spark";
+function animateNavi(time){
 
+  const dx =
+    targetX - naviX;
 
-    spark.style.left =
-        (
-            naviX +
-            35 +
-            Math.random() * 30
-        ) + "px";
+  const dy =
+    targetY - naviY;
 
-
-    spark.style.top =
-        (
-            naviY +
-            35 +
-            Math.random() * 30
-        ) + "px";
-
-
-    spark.style.width =
-        (2 + Math.random() * 4) +
-        "px";
-
-
-    spark.style.height =
-        spark.style.width;
-
-
-    document.body.appendChild(
-        spark
+  const distance =
+    Math.sqrt(
+      dx*dx +
+      dy*dy
     );
 
 
-    setTimeout(
-        () => spark.remove(),
-        900
-    );
+  if(distance < 12){
+
+    chooseNaviTarget();
+
+  }else{
+
+    const speed =
+      .0015 * distance;
+
+    naviX +=
+      dx * speed;
+
+    naviY +=
+      dy * speed;
+  }
+
+
+  const swayX =
+    Math.sin(time*.0023)*8;
+
+  const swayY =
+    Math.cos(time*.0017)*7;
+
+  const angle =
+    Math.atan2(dy,dx) *
+    180 / Math.PI;
+
+
+  navi.style.left =
+    naviX+"px";
+
+  navi.style.top =
+    naviY+"px";
+
+  navi.style.transform =
+    `translate(${swayX}px,${swayY}px)
+     rotate(${angle*.12}deg)`;
+
+
+  if(
+    naviReady &&
+    time-lastSpark > 150
+  ){
+
+    createNaviSpark();
+
+    lastSpark = time;
+  }
+
+
+  requestAnimationFrame(
+    animateNavi
+  );
 }
 
 
 chooseNaviTarget();
 
 requestAnimationFrame(
-    animateNavi
+  animateNavi
 );
 
 
-/* =====================================================
+/* =========================
    MÚSICA
-===================================================== */
+   AUTOPLAY + DESBLOQUEO
+========================= */
 
 const music =
-    document.getElementById(
-        "templeMusic"
-    );
-
+  document.getElementById(
+    "templeMusic"
+  );
 
 const musicButton =
-    document.getElementById(
-        "musicButton"
+  document.getElementById(
+    "musicButton"
+  );
+
+
+music.volume = .35;
+
+
+function setMusicUI(playing){
+
+  musicButton.classList.toggle(
+    "playing",
+    playing
+  );
+
+  musicButton.textContent =
+    playing ? "🔊" : "♫";
+}
+
+
+async function tryStartMusic(){
+
+  if(!music.paused){
+
+    setMusicUI(true);
+
+    return true;
+  }
+
+
+  try{
+
+    await music.play();
+
+    setMusicUI(true);
+
+    localStorage.setItem(
+      "ootMusicEnabled",
+      "1"
     );
 
+    return true;
 
-music.volume =
-    0.35;
+  }catch(error){
 
+    return false;
+  }
+}
+
+
+/* Intento automático */
+
+window.addEventListener(
+  "load",
+  () => {
+    tryStartMusic();
+  }
+);
+
+
+/* Si Chrome bloquea el autoplay,
+   cualquier primera interacción
+   intentará arrancar la música */
+
+let musicUnlocked = false;
+
+
+async function unlockMusicFromInteraction(){
+
+  if(musicUnlocked){
+    return;
+  }
+
+  musicUnlocked = true;
+
+  await tryStartMusic();
+
+
+  [
+    "pointerdown",
+    "touchstart",
+    "keydown"
+  ].forEach(type => {
+
+    document.removeEventListener(
+      type,
+      unlockMusicFromInteraction
+    );
+
+  });
+
+}
+
+
+[
+  "pointerdown",
+  "touchstart",
+  "keydown"
+].forEach(type => {
+
+  document.addEventListener(
+    type,
+    unlockMusicFromInteraction,
+    {passive:true}
+  );
+
+});
+
+
+/* Botón de música */
 
 musicButton.addEventListener(
+  "click",
+  async () => {
+
+    if(music.paused){
+
+      await tryStartMusic();
+
+    }else{
+
+      music.pause();
+
+      setMusicUI(false);
+
+      localStorage.setItem(
+        "ootMusicEnabled",
+        "0"
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================
+   COMPARTIR
+========================= */
+
+document
+  .getElementById("shareButton")
+  .addEventListener(
     "click",
     async () => {
 
-        if (
-            music.paused
-        ) {
+      const shareData = {
 
-            try {
+        title:
+          "OoT Countdown",
 
-                await music.play();
+        text:
+          "¡Vuelve la leyenda! Cuenta atrás para Ocarina of Time Remake.",
 
-                musicButton.classList.add(
-                    "playing"
-                );
+        url:
+          window.location.href
+      };
 
-                musicButton.textContent =
-                    "🔊";
 
-            } catch (error) {
+      try{
 
-                console.log(
-                    "No se pudo iniciar el audio.",
-                    error
-                );
+        if(navigator.share){
 
-            }
+          await navigator.share(
+            shareData
+          );
 
-        } else {
+        }else{
 
-            music.pause();
-
-            musicButton.classList.remove(
-                "playing"
+          await navigator.clipboard
+            .writeText(
+              window.location.href
             );
 
-            musicButton.textContent =
-                "♫";
+          alert(
+            "¡Enlace copiado!"
+          );
+
         }
+
+      }catch(error){}
 
     }
-);
+  );
 
 
-/* =====================================================
-   COMPARTIR
-===================================================== */
-
-document
-    .getElementById("shareButton")
-    .addEventListener(
-        "click",
-        async () => {
-
-            const shareData = {
-
-                title:
-                    "OoT Countdown",
-
-                text:
-                    "¡Vuelve la leyenda! Cuenta atrás para Ocarina of Time Remake.",
-
-                url:
-                    window.location.href
-            };
-
-
-            try {
-
-                if (
-                    navigator.share
-                ) {
-
-                    await navigator.share(
-                        shareData
-                    );
-
-                } else {
-
-                    await navigator.clipboard.writeText(
-                        window.location.href
-                    );
-
-                    alert(
-                        "¡Enlace copiado!"
-                    );
-                }
-
-            } catch (error) {
-
-                /* Cancelación del usuario */
-
-            }
-
-        }
-    );
-
-
-/* =====================================================
+/* =========================
    MENÚ
-===================================================== */
+========================= */
 
 const modal =
-    document.getElementById(
-        "modal"
-    );
-
+  document.getElementById(
+    "modal"
+  );
 
 const modalTitle =
-    document.getElementById(
-        "modalTitle"
-    );
-
+  document.getElementById(
+    "modalTitle"
+  );
 
 const modalText =
-    document.getElementById(
-        "modalText"
-    );
-
+  document.getElementById(
+    "modalText"
+  );
 
 const closeModal =
-    document.getElementById(
-        "closeModal"
-    );
+  document.getElementById(
+    "closeModal"
+  );
 
 
 document
-    .querySelectorAll(
-        ".menu-button"
-    )
-    .forEach(
-        button => {
+  .querySelectorAll(
+    ".menu-button"
+  )
+  .forEach(button => {
 
-            button.addEventListener(
-                "click",
-                () => {
+    button.addEventListener(
+      "click",
+      () => {
 
-                    modalTitle.textContent =
-                        button.dataset.title;
+        modalTitle.textContent =
+          button.dataset.title;
 
-                    modalText.textContent =
-                        button.dataset.text;
+        modalText.textContent =
+          button.dataset.text;
 
-                    modal.classList.add(
-                        "active"
-                    );
+        modal.classList.add(
+          "active"
+        );
 
-                }
-            );
-
-        }
+      }
     );
+
+  });
 
 
 closeModal.addEventListener(
-    "click",
-    () => {
-
-        modal.classList.remove(
-            "active"
-        );
-
-    }
+  "click",
+  () =>
+    modal.classList.remove(
+      "active"
+    )
 );
 
 
 modal.addEventListener(
-    "click",
-    event => {
+  "click",
+  event => {
 
-        if (
-            event.target === modal
-        ) {
+    if(event.target === modal){
 
-            modal.classList.remove(
-                "active"
-            );
-
-        }
+      modal.classList.remove(
+        "active"
+      );
 
     }
+
+  }
 );
 
 
-/* =====================================================
+/* =========================
    SERVICE WORKER
-===================================================== */
+========================= */
 
-if (
-    "serviceWorker" in navigator
-) {
+if("serviceWorker" in navigator){
 
-    window.addEventListener(
-        "load",
-        () => {
+  window.addEventListener(
+    "load",
+    () => {
 
-            navigator.serviceWorker
-                .register(
-                    "./service-worker.js"
-                )
-                .catch(
-                    error =>
-                        console.log(
-                            "Service Worker:",
-                            error
-                        )
-                );
+      navigator.serviceWorker
+        .register(
+          "./service-worker.js"
+        )
+        .catch(
+          error =>
+            console.log(
+              "Service Worker:",
+              error
+            )
+        );
 
-        }
-    );
+    }
+  );
 
 }
 
 </script>
 
-
 </body>
-
 </html>
