@@ -1,98 +1,106 @@
-const CACHE_NAME = "oot-countdown-v5";
+const CACHE_NAME = "oot-countdown-v6";
 
 const FILES_TO_CACHE = [
-    "./",
-    "./index.html",
-    "./manifest.json",
-    "./service-worker.js",
 
-    "./hyrule-bg.png",
-    "./oot-logo.png",
-    "./navi-clean.png",
-    "./temple-of-time.mp3",
+  "./",
 
-    "./icon-192-shield.png",
-    "./icon-512-shield.png"
+  "./index.html",
+
+  "./manifest.json",
+
+  "./service-worker.js",
+
+  "./hyrule-bg.png",
+
+  "./oot-logo.png",
+
+  "./navi-clean.png",
+
+  "./temple-of-time.mp3",
+
+  "./icon-192-shield.png",
+
+  "./icon-512-shield.png"
+
 ];
 
 
 self.addEventListener(
-    "install",
-    event => {
+  "install",
+  event => {
 
-        event.waitUntil(
+    event.waitUntil(
 
-            caches
-                .open(CACHE_NAME)
-                .then(
-                    cache =>
-                        cache.addAll(
-                            FILES_TO_CACHE
-                        )
-                )
+      caches
+        .open(CACHE_NAME)
+        .then(
+          cache =>
+            cache.addAll(
+              FILES_TO_CACHE
+            )
+        )
 
-        );
+    );
 
-        self.skipWaiting();
+    self.skipWaiting();
 
-    }
+  }
 );
 
 
 self.addEventListener(
-    "activate",
-    event => {
+  "activate",
+  event => {
 
-        event.waitUntil(
+    event.waitUntil(
 
-            caches
-                .keys()
-                .then(
-                    keys =>
-                        Promise.all(
+      caches
+        .keys()
+        .then(keys =>
 
-                            keys
-                                .filter(
-                                    key =>
-                                        key !== CACHE_NAME
-                                )
-                                .map(
-                                    key =>
-                                        caches.delete(
-                                            key
-                                        )
-                                )
+          Promise.all(
 
-                        )
-                )
+            keys
 
-        );
+              .filter(
+                key =>
+                  key !== CACHE_NAME
+              )
 
-        self.clients.claim();
+              .map(
+                key =>
+                  caches.delete(key)
+              )
 
-    }
+          )
+
+        )
+
+    );
+
+    self.clients.claim();
+
+  }
 );
 
 
 self.addEventListener(
-    "fetch",
-    event => {
+  "fetch",
+  event => {
 
-        event.respondWith(
+    event.respondWith(
 
-            caches
-                .match(
-                    event.request
-                )
-                .then(
-                    cachedResponse =>
-                        cachedResponse ||
-                        fetch(
-                            event.request
-                        )
-                )
+      caches
+        .match(event.request)
+        .then(
+          cachedResponse =>
 
-        );
+            cachedResponse ||
+            fetch(event.request)
 
-    }
+        )
+
+    );
+
+  }
 );
