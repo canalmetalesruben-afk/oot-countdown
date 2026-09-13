@@ -1,4 +1,4 @@
-const CACHE_NAME = "oot-countdown-v4";
+const CACHE_NAME = "oot-countdown-v5";
 
 const FILES_TO_CACHE = [
     "./",
@@ -8,80 +8,91 @@ const FILES_TO_CACHE = [
 
     "./hyrule-bg.png",
     "./oot-logo.png",
-    "./navi.png",
+    "./navi-clean.png",
+    "./temple-of-time.mp3",
 
     "./icon-192-shield.png",
     "./icon-512-shield.png"
 ];
 
 
-self.addEventListener("install", event => {
+self.addEventListener(
+    "install",
+    event => {
 
-    event.waitUntil(
+        event.waitUntil(
 
-        caches
-            .open(CACHE_NAME)
-            .then(cache => {
-
-                return cache.addAll(
-                    FILES_TO_CACHE
-                );
-
-            })
-
-    );
-
-    self.skipWaiting();
-
-});
-
-
-self.addEventListener("activate", event => {
-
-    event.waitUntil(
-
-        caches
-            .keys()
-            .then(keys => {
-
-                return Promise.all(
-
-                    keys
-                        .filter(
-                            key =>
-                                key !== CACHE_NAME
+            caches
+                .open(CACHE_NAME)
+                .then(
+                    cache =>
+                        cache.addAll(
+                            FILES_TO_CACHE
                         )
-                        .map(
-                            key =>
-                                caches.delete(key)
+                )
+
+        );
+
+        self.skipWaiting();
+
+    }
+);
+
+
+self.addEventListener(
+    "activate",
+    event => {
+
+        event.waitUntil(
+
+            caches
+                .keys()
+                .then(
+                    keys =>
+                        Promise.all(
+
+                            keys
+                                .filter(
+                                    key =>
+                                        key !== CACHE_NAME
+                                )
+                                .map(
+                                    key =>
+                                        caches.delete(
+                                            key
+                                        )
+                                )
+
                         )
+                )
 
-                );
+        );
 
-            })
+        self.clients.claim();
 
-    );
-
-    self.clients.claim();
-
-});
+    }
+);
 
 
-self.addEventListener("fetch", event => {
+self.addEventListener(
+    "fetch",
+    event => {
 
-    event.respondWith(
+        event.respondWith(
 
-        caches
-            .match(event.request)
-            .then(cachedResponse => {
+            caches
+                .match(
+                    event.request
+                )
+                .then(
+                    cachedResponse =>
+                        cachedResponse ||
+                        fetch(
+                            event.request
+                        )
+                )
 
-                return (
-                    cachedResponse ||
-                    fetch(event.request)
-                );
+        );
 
-            })
-
-    );
-
-});
+    }
+);
