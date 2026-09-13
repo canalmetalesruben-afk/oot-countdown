@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <meta name="theme-color" content="#06110d">
 
 <meta name="description"
-      content="Cuenta atrás para The Legend of Zelda: Ocarina of Time Remake">
+content="Cuenta atrás para The Legend of Zelda: Ocarina of Time Remake">
 
 <link rel="manifest" href="./manifest.json">
 
 <link rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="./icon-192-shield.png">
+type="image/png"
+sizes="192x192"
+href="./icon-192-shield.png">
 
 <link rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="./icon-512-shield.png">
+type="image/png"
+sizes="512x512"
+href="./icon-512-shield.png">
 
 <link rel="apple-touch-icon"
-      href="./icon-192-shield.png">
+href="./icon-192-shield.png">
 
 <meta name="mobile-web-app-capable"
-      content="yes">
+content="yes">
 
 <meta name="application-name"
-      content="OoT Countdown">
+content="OoT Countdown">
 
 <title>OoT Countdown</title>
 
@@ -79,7 +80,7 @@ body {
 
     inset: 0;
 
-    z-index: -10;
+    z-index: -20;
 
     background-image:
         linear-gradient(
@@ -108,7 +109,7 @@ body {
         radial-gradient(
             ellipse at center,
             transparent 15%,
-            rgba(0,0,0,0.25) 60%,
+            rgba(0,0,0,0.22) 60%,
             rgba(0,0,0,0.72) 100%
         );
 }
@@ -142,12 +143,403 @@ body {
 
     pointer-events: none;
 
-    z-index: -5;
+    z-index: -10;
 }
 
 
 /* =====================================================
-   CONTENEDOR PRINCIPAL
+   LOGO + DESTELLO DORADO
+===================================================== */
+
+.logo-wrap {
+
+    position: relative;
+
+    display: inline-block;
+
+    width: min(92vw, 680px);
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    animation:
+        logoIntro 1.2s ease-out;
+}
+
+
+.logo {
+
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    max-height: 250px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 6px 10px rgba(0,0,0,0.9))
+        drop-shadow(0 0 20px rgba(220,185,80,0.18));
+}
+
+
+/*
+   El destello atraviesa el logo
+   una sola vez al entrar.
+*/
+
+.logo-wrap::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: -20%;
+
+    left: -65%;
+
+    width: 28%;
+
+    height: 140%;
+
+    transform:
+        rotate(18deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,239,169,0.15),
+            rgba(255,220,100,0.75),
+            rgba(255,245,190,0.18),
+            transparent
+        );
+
+    filter:
+        blur(5px);
+
+    pointer-events: none;
+
+    animation:
+        logoShimmer 2.2s ease-out 0.8s 1;
+}
+
+
+@keyframes logoIntro {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(-15px)
+            scale(0.96);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes logoShimmer {
+
+    from {
+        left: -65%;
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0.9;
+    }
+
+    to {
+        left: 145%;
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding-top: 15px;
+}
+
+
+.subtitle {
+
+    margin-top: 3px;
+
+    color: #ead9a8;
+
+    font-size:
+        clamp(18px, 4.5vw, 28px);
+
+    font-style: italic;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 2px 8px rgba(0,0,0,0.9),
+        0 0 15px rgba(225,190,90,0.18);
+}
+
+
+/* =====================================================
+   NAVI
+===================================================== */
+
+#navi {
+
+    position: fixed;
+
+    width:
+        clamp(70px, 17vw, 105px);
+
+    height: auto;
+
+    left: 0;
+
+    top: 0;
+
+    z-index: 15;
+
+    pointer-events: none;
+
+    filter:
+        drop-shadow(0 0 7px rgba(80,200,255,0.75))
+        drop-shadow(0 0 15px rgba(50,160,255,0.35));
+
+    will-change:
+        transform,
+        left,
+        top;
+}
+
+
+/* =====================================================
+   DESTELLOS QUE DEJA NAVI
+===================================================== */
+
+.navi-spark {
+
+    position: fixed;
+
+    width: 4px;
+
+    height: 4px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,1) 0%,
+            rgba(150,225,255,0.9) 35%,
+            rgba(90,180,255,0.2) 70%,
+            transparent 100%
+        );
+
+    pointer-events: none;
+
+    z-index: 14;
+
+    animation:
+        sparkFade 0.9s ease-out forwards;
+}
+
+
+@keyframes sparkFade {
+
+    0% {
+
+        opacity: 0.95;
+
+        transform:
+            scale(1.4);
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            scale(0.1)
+            translateY(8px);
+    }
+}
+
+
+/* =====================================================
+   LUCIÉRNAGAS
+===================================================== */
+
+.firefly {
+
+    position: fixed;
+
+    width: 3px;
+
+    height: 3px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,245,185,1),
+            rgba(225,190,85,0.6) 35%,
+            transparent 75%
+        );
+
+    box-shadow:
+        0 0 5px rgba(245,220,120,0.55);
+
+    pointer-events: none;
+
+    z-index: 2;
+
+    animation:
+        fireflyFloat
+        var(--duration)
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes fireflyFloat {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translate(0,0)
+            scale(0.5);
+    }
+
+    20% {
+
+        opacity:
+            var(--brightness);
+    }
+
+    50% {
+
+        transform:
+            translate(
+                var(--move-x),
+                var(--move-y)
+            )
+            scale(1);
+    }
+
+    75% {
+
+        opacity:
+            var(--brightness);
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translate(
+                calc(var(--move-x) * -0.5),
+                calc(var(--move-y) * -0.5)
+            )
+            scale(0.4);
+    }
+}
+
+
+/* =====================================================
+   BOTÓN DE MÚSICA
+===================================================== */
+
+.music-button {
+
+    position: fixed;
+
+    top: 16px;
+
+    right: 16px;
+
+    z-index: 50;
+
+    width: 44px;
+
+    height: 44px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(220,190,105,0.55);
+
+    background:
+        rgba(3,12,8,0.72);
+
+    color: #e5cf91;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(6px);
+
+    box-shadow:
+        0 4px 18px rgba(0,0,0,0.4);
+
+    transition:
+        0.25s ease;
+}
+
+
+.music-button.playing {
+
+    color: #fff0b5;
+
+    border-color:
+        rgba(240,210,120,0.9);
+
+    box-shadow:
+        0 0 18px
+        rgba(220,190,90,0.3);
+}
+
+
+/* =====================================================
+   CONTENEDOR
 ===================================================== */
 
 .page {
@@ -170,97 +562,7 @@ body {
 
 
 /* =====================================================
-   LOGO
-===================================================== */
-
-.hero {
-
-    width: 100%;
-
-    max-width: 900px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    text-align: center;
-
-    padding-top: 15px;
-}
-
-
-.logo {
-
-    display: block;
-
-    width: min(92vw, 680px);
-
-    height: auto;
-
-    max-height: 250px;
-
-    object-fit: contain;
-
-    filter:
-        drop-shadow(0 6px 10px rgba(0,0,0,0.9))
-        drop-shadow(0 0 20px rgba(220,185,80,0.18));
-
-    animation:
-        logoIntro 1.2s ease-out;
-}
-
-
-@keyframes logoIntro {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(-15px)
-            scale(0.96);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-
-    }
-}
-
-
-/* =====================================================
-   FRASE
-===================================================== */
-
-.subtitle {
-
-    margin-top: 3px;
-
-    color: #ead9a8;
-
-    font-size:
-        clamp(18px, 4.5vw, 28px);
-
-    font-style: italic;
-
-    letter-spacing: 2px;
-
-    text-shadow:
-        0 2px 8px rgba(0,0,0,0.9),
-        0 0 15px rgba(225,190,90,0.18);
-}
-
-
-/* =====================================================
-   FECHA
+   CUENTA ATRÁS
 ===================================================== */
 
 .countdown-section {
@@ -289,10 +591,6 @@ body {
 }
 
 
-/* =====================================================
-   CUENTA ATRÁS
-===================================================== */
-
 .countdown {
 
     width: 100%;
@@ -302,7 +600,8 @@ body {
     grid-template-columns:
         repeat(4, minmax(0, 1fr));
 
-    gap: clamp(6px, 1.8vw, 16px);
+    gap:
+        clamp(6px, 1.8vw, 16px);
 }
 
 
@@ -681,7 +980,7 @@ footer {
 
 
 /* =====================================================
-   MÓVILES
+   MÓVIL
 ===================================================== */
 
 @media (max-width: 500px) {
@@ -700,7 +999,7 @@ footer {
     }
 
 
-    .logo {
+    .logo-wrap {
 
         width: 94vw;
 
@@ -746,11 +1045,8 @@ footer {
 
     .number {
 
-        font-size: clamp(
-            25px,
-            8vw,
-            38px
-        );
+        font-size:
+            clamp(25px, 8vw, 38px);
     }
 
 
@@ -802,41 +1098,29 @@ footer {
     }
 
 
+    #navi {
+
+        width: 75px;
+    }
+
+
+    .music-button {
+
+        top: 12px;
+
+        right: 12px;
+
+        width: 40px;
+
+        height: 40px;
+
+        font-size: 18px;
+    }
+
+
     footer {
 
         margin-top: 28px;
-    }
-
-}
-
-
-/* =====================================================
-   PANTALLAS MUY PEQUEÑAS
-===================================================== */
-
-@media (max-width: 360px) {
-
-    .countdown {
-
-        gap: 3px;
-    }
-
-
-    .time-box {
-
-        min-height: 72px;
-    }
-
-
-    .number {
-
-        font-size: 23px;
-    }
-
-
-    .label {
-
-        font-size: 6px;
     }
 
 }
@@ -854,14 +1138,49 @@ footer {
 <div class="ambient-glow"></div>
 
 
+<!-- =====================================================
+     MÚSICA
+===================================================== -->
+
+<audio
+    id="templeMusic"
+    src="./temple-of-time.mp3"
+    loop
+    preload="auto">
+</audio>
+
+
+<button
+    id="musicButton"
+    class="music-button"
+    aria-label="Activar música">
+
+    ♫
+
+</button>
+
+
+<!-- =====================================================
+     NAVI
+===================================================== -->
+
+<img
+    id="navi"
+    src="./navi-clean.png"
+    alt=""
+>
+
+
+<!-- =====================================================
+     CONTENIDO
+===================================================== -->
+
 <main class="page">
 
 
-    <!-- =================================================
-         LOGO
-    ================================================== -->
+<section class="hero">
 
-    <section class="hero">
+    <div class="logo-wrap">
 
         <img
             class="logo"
@@ -869,186 +1188,173 @@ footer {
             alt="The Legend of Zelda Ocarina of Time"
         >
 
-        <div class="subtitle">
-            «Vuelve la leyenda...»
-        </div>
-
-    </section>
+    </div>
 
 
-    <!-- =================================================
-         CUENTA ATRÁS
-    ================================================== -->
+    <div class="subtitle">
+        «Vuelve la leyenda...»
+    </div>
 
-    <section class="countdown-section">
-
-        <div class="date">
-            5 · NOVIEMBRE · 2026
-        </div>
+</section>
 
 
-        <div class="countdown">
+<section class="countdown-section">
 
-            <div class="time-box">
 
-                <div
-                    id="days"
-                    class="number">
-                    000
-                </div>
+    <div class="date">
+        5 · NOVIEMBRE · 2026
+    </div>
 
-                <div class="label">
-                    Días
-                </div>
 
+    <div class="countdown">
+
+
+        <div class="time-box">
+
+            <div
+                id="days"
+                class="number">
+                000
             </div>
 
-
-            <div class="time-box">
-
-                <div
-                    id="hours"
-                    class="number">
-                    00
-                </div>
-
-                <div class="label">
-                    Horas
-                </div>
-
-            </div>
-
-
-            <div class="time-box">
-
-                <div
-                    id="minutes"
-                    class="number">
-                    00
-                </div>
-
-                <div class="label">
-                    Minutos
-                </div>
-
-            </div>
-
-
-            <div class="time-box">
-
-                <div
-                    id="seconds"
-                    class="number">
-                    00
-                </div>
-
-                <div class="label">
-                    Segundos
-                </div>
-
+            <div class="label">
+                Días
             </div>
 
         </div>
 
 
-        <button
-            id="shareButton"
-            class="share-button">
+        <div class="time-box">
 
-            COMPARTIR CUENTA ATRÁS
+            <div
+                id="hours"
+                class="number">
+                00
+            </div>
 
-        </button>
+            <div class="label">
+                Horas
+            </div>
 
-    </section>
-
-
-    <!-- =================================================
-         MENÚ
-    ================================================== -->
-
-    <nav class="menu">
-
-
-        <button
-            class="menu-button"
-            data-title="Noticias"
-            data-text="Aquí reuniremos las noticias, anuncios y novedades más importantes relacionadas con Ocarina of Time Remake.">
-
-            <span class="menu-icon">
-                ✦
-            </span>
-
-            <span class="menu-title">
-                Noticias
-            </span>
-
-        </button>
-
-
-        <button
-            class="menu-button"
-            data-title="Galería"
-            data-text="Imágenes, capturas y material visual del regreso de la leyenda.">
-
-            <span class="menu-icon">
-                ◇
-            </span>
-
-            <span class="menu-title">
-                Galería
-            </span>
-
-        </button>
-
-
-        <button
-            class="menu-button"
-            data-title="Música"
-            data-text="Un espacio dedicado a la música y al sonido que acompañan esta nueva aventura.">
-
-            <span class="menu-icon">
-                ♫
-            </span>
-
-            <span class="menu-title">
-                Música
-            </span>
-
-        </button>
-
-
-        <button
-            class="menu-button"
-            data-title="Extras"
-            data-text="Curiosidades, secretos, referencias y otros contenidos para los fans de Ocarina of Time.">
-
-            <span class="menu-icon">
-                ✧
-            </span>
-
-            <span class="menu-title">
-                Extras
-            </span>
-
-        </button>
-
-
-    </nav>
-
-
-    <!-- =================================================
-         PIE
-    ================================================== -->
-
-    <footer>
-
-        HYRULE AWAITS
-
-        <div class="fan">
-            Proyecto fan no oficial · No afiliado con Nintendo
         </div>
 
-    </footer>
+
+        <div class="time-box">
+
+            <div
+                id="minutes"
+                class="number">
+                00
+            </div>
+
+            <div class="label">
+                Minutos
+            </div>
+
+        </div>
+
+
+        <div class="time-box">
+
+            <div
+                id="seconds"
+                class="number">
+                00
+            </div>
+
+            <div class="label">
+                Segundos
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <button
+        id="shareButton"
+        class="share-button">
+
+        COMPARTIR CUENTA ATRÁS
+
+    </button>
+
+
+</section>
+
+
+<nav class="menu">
+
+
+    <button
+        class="menu-button"
+        data-title="Noticias"
+        data-text="Aquí reuniremos las noticias, anuncios y novedades más importantes relacionadas con Ocarina of Time Remake.">
+
+        <span class="menu-icon">✦</span>
+
+        <span class="menu-title">
+            Noticias
+        </span>
+
+    </button>
+
+
+    <button
+        class="menu-button"
+        data-title="Galería"
+        data-text="Imágenes, capturas y material visual del regreso de la leyenda.">
+
+        <span class="menu-icon">◇</span>
+
+        <span class="menu-title">
+            Galería
+        </span>
+
+    </button>
+
+
+    <button
+        class="menu-button"
+        data-title="Música"
+        data-text="Un espacio dedicado a la música y al sonido que acompañan esta nueva aventura.">
+
+        <span class="menu-icon">♫</span>
+
+        <span class="menu-title">
+            Música
+        </span>
+
+    </button>
+
+
+    <button
+        class="menu-button"
+        data-title="Extras"
+        data-text="Curiosidades, secretos, referencias y otros contenidos para los fans de Ocarina of Time.">
+
+        <span class="menu-icon">✧</span>
+
+        <span class="menu-title">
+            Extras
+        </span>
+
+    </button>
+
+
+</nav>
+
+
+<footer>
+
+    HYRULE AWAITS
+
+    <div class="fan">
+        Proyecto fan no oficial · No afiliado con Nintendo
+    </div>
+
+</footer>
 
 
 </main>
@@ -1095,13 +1401,6 @@ footer {
    CUENTA ATRÁS
 ===================================================== */
 
-/*
-   5 de noviembre de 2026
-   00:00 hora española.
-
-   En noviembre España utiliza CET (UTC+1).
-*/
-
 const targetDate =
     new Date(
         "2026-11-05T00:00:00+01:00"
@@ -1123,27 +1422,16 @@ const secondsElement =
 
 function updateCountdown() {
 
-    const now =
-        Date.now();
-
-
     const difference =
-        targetDate - now;
+        targetDate - Date.now();
 
 
     if (difference <= 0) {
 
-        daysElement.textContent =
-            "000";
-
-        hoursElement.textContent =
-            "00";
-
-        minutesElement.textContent =
-            "00";
-
-        secondsElement.textContent =
-            "00";
+        daysElement.textContent = "000";
+        hoursElement.textContent = "00";
+        minutesElement.textContent = "00";
+        secondsElement.textContent = "00";
 
         return;
     }
@@ -1180,27 +1468,18 @@ function updateCountdown() {
     daysElement.textContent =
         String(days).padStart(3, "0");
 
-
     hoursElement.textContent =
         String(hours).padStart(2, "0");
-
 
     minutesElement.textContent =
         String(minutes).padStart(2, "0");
 
-
     secondsElement.textContent =
         String(seconds).padStart(2, "0");
-
 }
 
 
-/* Primera actualización */
-
 updateCountdown();
-
-
-/* Actualizar cada segundo */
 
 setInterval(
     updateCountdown,
@@ -1209,59 +1488,323 @@ setInterval(
 
 
 /* =====================================================
-   COMPARTIR
+   LUCIÉRNAGAS
 ===================================================== */
 
-const shareButton =
+function createFireflies() {
+
+    for (
+        let i = 0;
+        i < 26;
+        i++
+    ) {
+
+        const firefly =
+            document.createElement("div");
+
+
+        firefly.className =
+            "firefly";
+
+
+        firefly.style.left =
+            Math.random() * 100 + "vw";
+
+
+        firefly.style.top =
+            Math.random() * 100 + "vh";
+
+
+        firefly.style.setProperty(
+            "--duration",
+            (5 + Math.random() * 8) + "s"
+        );
+
+
+        firefly.style.setProperty(
+            "--move-x",
+            (-35 + Math.random() * 70) + "px"
+        );
+
+
+        firefly.style.setProperty(
+            "--move-y",
+            (-45 + Math.random() * 90) + "px"
+        );
+
+
+        firefly.style.setProperty(
+            "--brightness",
+            (0.25 + Math.random() * 0.55)
+        );
+
+
+        firefly.style.animationDelay =
+            (-Math.random() * 8) + "s";
+
+
+        document.body.appendChild(
+            firefly
+        );
+    }
+}
+
+
+createFireflies();
+
+
+/* =====================================================
+   NAVI
+===================================================== */
+
+const navi =
     document.getElementById(
-        "shareButton"
+        "navi"
     );
 
 
-shareButton.addEventListener(
+let naviX =
+    window.innerWidth * 0.15;
+
+
+let naviY =
+    window.innerHeight * 0.30;
+
+
+let targetX =
+    window.innerWidth * 0.75;
+
+
+let targetY =
+    window.innerHeight * 0.55;
+
+
+let lastSpark =
+    0;
+
+
+function chooseNaviTarget() {
+
+    const margin = 30;
+
+
+    targetX =
+        margin +
+        Math.random() *
+        Math.max(
+            1,
+            window.innerWidth - 100
+        );
+
+
+    targetY =
+        100 +
+        Math.random() *
+        Math.max(
+            1,
+            window.innerHeight - 220
+        );
+}
+
+
+function animateNavi(time) {
+
+    const dx =
+        targetX - naviX;
+
+
+    const dy =
+        targetY - naviY;
+
+
+    const distance =
+        Math.sqrt(
+            dx * dx +
+            dy * dy
+        );
+
+
+    if (distance < 12) {
+
+        chooseNaviTarget();
+
+    } else {
+
+        const speed =
+            0.0015 *
+            distance;
+
+
+        naviX +=
+            dx * speed;
+
+        naviY +=
+            dy * speed;
+    }
+
+
+    const swayX =
+        Math.sin(time * 0.0023) * 8;
+
+
+    const swayY =
+        Math.cos(time * 0.0017) * 7;
+
+
+    const angle =
+        Math.atan2(
+            dy,
+            dx
+        ) * 180 / Math.PI;
+
+
+    navi.style.left =
+        naviX + "px";
+
+
+    navi.style.top =
+        naviY + "px";
+
+
+    navi.style.transform =
+        `translate(${swayX}px, ${swayY}px)
+         rotate(${angle * 0.12}deg)`;
+
+
+    /*
+       Creamos el destello detrás de Navi,
+       NO dentro de su PNG.
+    */
+
+    if (
+        time - lastSpark > 130
+    ) {
+
+        createNaviSpark();
+
+        lastSpark =
+            time;
+    }
+
+
+    requestAnimationFrame(
+        animateNavi
+    );
+}
+
+
+function createNaviSpark() {
+
+    const spark =
+        document.createElement("div");
+
+
+    spark.className =
+        "navi-spark";
+
+
+    spark.style.left =
+        (
+            naviX +
+            35 +
+            Math.random() * 30
+        ) + "px";
+
+
+    spark.style.top =
+        (
+            naviY +
+            35 +
+            Math.random() * 30
+        ) + "px";
+
+
+    spark.style.width =
+        (2 + Math.random() * 4) +
+        "px";
+
+
+    spark.style.height =
+        spark.style.width;
+
+
+    document.body.appendChild(
+        spark
+    );
+
+
+    setTimeout(
+        () => spark.remove(),
+        900
+    );
+}
+
+
+chooseNaviTarget();
+
+requestAnimationFrame(
+    animateNavi
+);
+
+
+/* =====================================================
+   MÚSICA
+===================================================== */
+
+const music =
+    document.getElementById(
+        "templeMusic"
+    );
+
+
+const musicButton =
+    document.getElementById(
+        "musicButton"
+    );
+
+
+music.volume =
+    0.35;
+
+
+musicButton.addEventListener(
     "click",
     async () => {
 
-        const shareData = {
+        if (
+            music.paused
+        ) {
 
-            title:
-                "OoT Countdown",
+            try {
 
-            text:
-                "¡Vuelve la leyenda! Cuenta atrás para Ocarina of Time Remake.",
+                await music.play();
 
-            url:
-                window.location.href
-
-        };
-
-
-        try {
-
-            if (
-                navigator.share
-            ) {
-
-                await navigator.share(
-                    shareData
+                musicButton.classList.add(
+                    "playing"
                 );
 
-            } else {
+                musicButton.textContent =
+                    "🔊";
 
-                await navigator.clipboard.writeText(
-                    window.location.href
-                );
+            } catch (error) {
 
-                alert(
-                    "¡Enlace copiado!"
+                console.log(
+                    "No se pudo iniciar el audio.",
+                    error
                 );
 
             }
 
-        } catch (error) {
+        } else {
 
-            /* El usuario canceló compartir */
+            music.pause();
 
+            musicButton.classList.remove(
+                "playing"
+            );
+
+            musicButton.textContent =
+                "♫";
         }
 
     }
@@ -1269,7 +1812,61 @@ shareButton.addEventListener(
 
 
 /* =====================================================
-   MENÚ / MODAL
+   COMPARTIR
+===================================================== */
+
+document
+    .getElementById("shareButton")
+    .addEventListener(
+        "click",
+        async () => {
+
+            const shareData = {
+
+                title:
+                    "OoT Countdown",
+
+                text:
+                    "¡Vuelve la leyenda! Cuenta atrás para Ocarina of Time Remake.",
+
+                url:
+                    window.location.href
+            };
+
+
+            try {
+
+                if (
+                    navigator.share
+                ) {
+
+                    await navigator.share(
+                        shareData
+                    );
+
+                } else {
+
+                    await navigator.clipboard.writeText(
+                        window.location.href
+                    );
+
+                    alert(
+                        "¡Enlace copiado!"
+                    );
+                }
+
+            } catch (error) {
+
+                /* Cancelación del usuario */
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   MENÚ
 ===================================================== */
 
 const modal =
@@ -1300,26 +1897,28 @@ document
     .querySelectorAll(
         ".menu-button"
     )
-    .forEach(button => {
+    .forEach(
+        button => {
 
-        button.addEventListener(
-            "click",
-            () => {
+            button.addEventListener(
+                "click",
+                () => {
 
-                modalTitle.textContent =
-                    button.dataset.title;
+                    modalTitle.textContent =
+                        button.dataset.title;
 
-                modalText.textContent =
-                    button.dataset.text;
+                    modalText.textContent =
+                        button.dataset.text;
 
-                modal.classList.add(
-                    "active"
-                );
+                    modal.classList.add(
+                        "active"
+                    );
 
-            }
-        );
+                }
+            );
 
-    });
+        }
+    );
 
 
 closeModal.addEventListener(
@@ -1369,14 +1968,11 @@ if (
                     "./service-worker.js"
                 )
                 .catch(
-                    error => {
-
+                    error =>
                         console.log(
                             "Service Worker:",
                             error
-                        );
-
-                    }
+                        )
                 );
 
         }
@@ -1388,4 +1984,5 @@ if (
 
 
 </body>
+
 </html>
