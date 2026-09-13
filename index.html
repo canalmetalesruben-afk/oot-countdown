@@ -1,23 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<meta name="theme-color" content="#06110d">
-<meta name="description" content="Cuenta atrás para The Legend of Zelda: Ocarina of Time Remake">
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               viewport-fit=cover">
 
-<link rel="manifest" href="./manifest.json">
-<link rel="icon" type="image/png" sizes="192x192" href="./icon-192-shield.png">
-<link rel="icon" type="image/png" sizes="512x512" href="./icon-512-shield.png">
-<link rel="apple-touch-icon" href="./icon-192-shield.png">
+<meta name="theme-color"
+      content="#06110d">
 
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="application-name" content="OoT Countdown">
+<meta name="description"
+      content="Cuenta atrás para The Legend of Zelda: Ocarina of Time Remake">
+
+<link rel="manifest"
+      href="./manifest.json">
+
+<link rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="./icon-192-shield.png">
+
+<link rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="./icon-512-shield.png">
+
+<link rel="apple-touch-icon"
+      href="./icon-192-shield.png">
+
+<meta name="mobile-web-app-capable"
+      content="yes">
+
+<meta name="application-name"
+      content="OoT Countdown">
 
 <title>OoT Countdown</title>
 
+
 <style>
+
+/* =====================================================
+   BASE
+===================================================== */
 
 *{
   box-sizing:border-box;
@@ -32,39 +60,59 @@ body{
 }
 
 body{
+
   background:#020604;
+
   color:#f2e6c5;
-  font-family:Georgia,"Times New Roman",serif;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   overflow-x:hidden;
 }
 
-/* =========================
+
+/* =====================================================
    FONDO
-========================= */
+===================================================== */
 
 .background{
+
   position:fixed;
+
   inset:0;
+
   z-index:-20;
 
   background-image:
+
     linear-gradient(
       rgba(0,0,0,.35),
       rgba(0,3,2,.78)
     ),
+
     url("./hyrule-bg.png");
 
   background-size:cover;
+
   background-position:center;
+
   background-repeat:no-repeat;
 }
 
+
 .background:after{
+
   content:"";
+
   position:absolute;
+
   inset:0;
 
   background:
+
     radial-gradient(
       ellipse at center,
       transparent 15%,
@@ -73,7 +121,9 @@ body{
     );
 }
 
+
 .ambient-glow{
+
   position:fixed;
 
   width:500px;
@@ -82,9 +132,11 @@ body{
   left:50%;
   top:42%;
 
-  transform:translate(-50%,-50%);
+  transform:
+    translate(-50%,-50%);
 
   background:
+
     radial-gradient(
       circle,
       rgba(226,191,92,.10),
@@ -94,15 +146,17 @@ body{
   filter:blur(20px);
 
   pointer-events:none;
+
   z-index:-10;
 }
 
-/* =========================
+
+/* =====================================================
    LOGO
-   SIN DESTELLO
-========================= */
+===================================================== */
 
 .logo-wrap{
+
   position:relative;
 
   display:inline-block;
@@ -111,13 +165,17 @@ body{
 
   overflow:visible;
 
-  animation:logoIntro 1.2s ease-out;
+  animation:
+    logoIntro 1.2s ease-out;
 }
 
+
 .logo{
+
   display:block;
 
   width:100%;
+
   height:auto;
 
   max-height:none;
@@ -125,34 +183,54 @@ body{
   object-fit:contain;
 
   filter:
-    drop-shadow(0 6px 10px rgba(0,0,0,.9))
-    drop-shadow(0 0 20px rgba(220,185,80,.18));
+
+    drop-shadow(
+      0 6px 10px rgba(0,0,0,.9)
+    )
+
+    drop-shadow(
+      0 0 20px rgba(220,185,80,.18)
+    );
 }
+
 
 @keyframes logoIntro{
 
   from{
+
     opacity:0;
-    transform:translateY(-15px) scale(.96);
+
+    transform:
+      translateY(-15px)
+      scale(.96);
   }
 
   to{
+
     opacity:1;
-    transform:translateY(0) scale(1);
+
+    transform:
+      translateY(0)
+      scale(1);
   }
 
 }
 
-/* =========================
+
+/* =====================================================
    HERO
-========================= */
+===================================================== */
 
 .hero{
+
   width:100%;
+
   max-width:900px;
 
   display:flex;
+
   flex-direction:column;
+
   align-items:center;
 
   text-align:center;
@@ -160,35 +238,44 @@ body{
   padding-top:15px;
 }
 
+
 .subtitle{
+
   margin-top:3px;
 
   color:#ead9a8;
 
-  font-size:clamp(18px,4.5vw,28px);
+  font-size:
+    clamp(18px,4.5vw,28px);
 
   font-style:italic;
 
   letter-spacing:2px;
 
   text-shadow:
+
     0 2px 8px rgba(0,0,0,.9),
-    0 0 15px rgba(225,190,90,.18);
+
+    0 0 15px
+      rgba(225,190,90,.18);
 }
 
-/* =========================
+
+/* =====================================================
    NAVI
-========================= */
+===================================================== */
 
 #navi{
 
   position:fixed;
 
-  width:clamp(72px,13vw,105px);
+  width:
+    clamp(72px,13vw,105px);
 
   height:auto;
 
   left:0;
+
   top:0;
 
   z-index:15;
@@ -196,12 +283,22 @@ body{
   pointer-events:none;
 
   display:block;
+
   visibility:visible;
+
   opacity:1;
 
   filter:
-    drop-shadow(0 0 7px rgba(80,200,255,.75))
-    drop-shadow(0 0 15px rgba(50,160,255,.35));
+
+    drop-shadow(
+      0 0 7px
+      rgba(80,200,255,.75)
+    )
+
+    drop-shadow(
+      0 0 15px
+      rgba(50,160,255,.35)
+    );
 
   will-change:
     transform,
@@ -209,26 +306,37 @@ body{
     top;
 }
 
-/* =========================
+
+/* =====================================================
    DESTELLOS DE NAVI
-========================= */
+===================================================== */
 
 .navi-spark{
 
   position:fixed;
 
   width:4px;
+
   height:4px;
 
   border-radius:50%;
 
   background:
+
     radial-gradient(
       circle,
-      rgba(255,255,255,1) 0%,
-      rgba(150,225,255,.9) 35%,
-      rgba(90,180,255,.2) 70%,
-      transparent 100%
+
+      rgba(255,255,255,1)
+        0%,
+
+      rgba(150,225,255,.9)
+        35%,
+
+      rgba(90,180,255,.2)
+        70%,
+
+      transparent
+        100%
     );
 
   pointer-events:none;
@@ -239,15 +347,21 @@ body{
     sparkFade .9s ease-out forwards;
 }
 
+
 @keyframes sparkFade{
 
   0%{
+
     opacity:.95;
-    transform:scale(1.4);
+
+    transform:
+      scale(1.4);
   }
 
   100%{
+
     opacity:0;
+
     transform:
       scale(.1)
       translateY(8px);
@@ -255,152 +369,288 @@ body{
 
 }
 
-/* =========================
+
+/* =====================================================
    LUCIÉRNAGAS
-========================= */
+===================================================== */
 
 .firefly{
 
   position:fixed;
 
   width:3px;
+
   height:3px;
 
   border-radius:50%;
 
   background:
+
     radial-gradient(
       circle,
+
       rgba(255,245,185,1),
-      rgba(225,190,85,.6) 35%,
-      transparent 75%
+
+      rgba(225,190,85,.6)
+        35%,
+
+      transparent
+        75%
     );
 
   box-shadow:
-    0 0 5px rgba(245,220,120,.55);
+
+    0 0 5px
+    rgba(245,220,120,.55);
 
   pointer-events:none;
 
   z-index:2;
 
   animation:
-    fireflyFloat var(--duration)
-    ease-in-out infinite;
+
+    fireflyFloat
+    var(--duration)
+    ease-in-out
+    infinite;
 }
+
 
 @keyframes fireflyFloat{
 
   0%{
+
     opacity:0;
+
     transform:
       translate(0,0)
       scale(.5);
   }
 
   20%{
-    opacity:var(--brightness);
+
+    opacity:
+      var(--brightness);
   }
 
   50%{
+
     transform:
-      translate(var(--move-x),var(--move-y))
+
+      translate(
+        var(--move-x),
+        var(--move-y)
+      )
+
       scale(1);
   }
 
   75%{
-    opacity:var(--brightness);
+
+    opacity:
+      var(--brightness);
   }
 
   100%{
+
     opacity:0;
 
     transform:
+
       translate(
         calc(var(--move-x)*-.5),
         calc(var(--move-y)*-.5)
       )
+
       scale(.4);
   }
 
 }
 
-/* =========================
-   BOTÓN MÚSICA
-========================= */
+
+/* =====================================================
+   BOTÓN DE OCARINA
+===================================================== */
 
 .music-button{
 
   position:fixed;
 
   top:16px;
+
   right:16px;
 
   z-index:50;
 
-  width:44px;
-  height:44px;
+  width:52px;
+
+  height:52px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:0;
+
+  border:
+
+    1px solid
+    rgba(220,190,105,.55);
 
   border-radius:50%;
 
-  border:
-    1px solid rgba(220,190,105,.55);
-
   background:
+
     rgba(3,12,8,.72);
 
-  color:#e5cf91;
-
-  font-size:20px;
+  color:#d9bd72;
 
   cursor:pointer;
 
   backdrop-filter:blur(6px);
 
   box-shadow:
-    0 4px 18px rgba(0,0,0,.4);
 
-  transition:.25s ease;
+    0 4px 18px
+    rgba(0,0,0,.4);
+
+  transition:
+
+    border-color .3s ease,
+
+    box-shadow .3s ease,
+
+    transform .2s ease,
+
+    color .3s ease;
 }
+
+
+.music-button:active{
+
+  transform:scale(.92);
+}
+
+
+/* OCARINA SVG */
+
+.ocarina-icon{
+
+  width:31px;
+
+  height:31px;
+
+  display:block;
+
+  color:#d9bd72;
+
+  filter:
+
+    drop-shadow(
+      0 2px 3px
+      rgba(0,0,0,.7)
+    );
+
+  transition:
+
+    filter .4s ease,
+
+    color .4s ease,
+
+    transform .4s ease;
+}
+
+
+/* MÚSICA ACTIVA */
 
 .music-button.playing{
 
-  color:#fff0b5;
+  color:#f2d889;
 
   border-color:
+
     rgba(240,210,120,.9);
 
   box-shadow:
-    0 0 18px rgba(220,190,90,.3);
+
+    0 0 18px
+    rgba(220,190,90,.32),
+
+    inset 0 0 12px
+    rgba(220,190,90,.08);
 }
 
-/* =========================
+
+.music-button.playing
+.ocarina-icon{
+
+  color:#f2d889;
+
+  filter:
+
+    drop-shadow(
+      0 0 4px
+      rgba(245,215,125,.75)
+    )
+
+    drop-shadow(
+      0 0 10px
+      rgba(220,190,90,.35)
+    );
+
+  transform:scale(1.04);
+}
+
+
+/* =====================================================
    CONTENIDO
-========================= */
+===================================================== */
 
 .page{
 
   width:100%;
+
   min-height:100vh;
 
   display:flex;
+
   flex-direction:column;
+
   align-items:center;
 
   padding:
-    max(25px,env(safe-area-inset-top))
+
+    max(
+      25px,
+      env(safe-area-inset-top)
+    )
+
     16px
-    max(25px,env(safe-area-inset-bottom));
+
+    max(
+      25px,
+      env(safe-area-inset-bottom)
+    );
 }
+
+
+/* =====================================================
+   CUENTA ATRÁS
+===================================================== */
 
 .countdown-section{
 
   width:100%;
+
   max-width:900px;
 
   margin-top:28px;
 
   text-align:center;
 }
+
 
 .date{
 
@@ -415,6 +665,7 @@ body{
   margin-bottom:15px;
 }
 
+
 .countdown{
 
   width:100%;
@@ -422,18 +673,30 @@ body{
   display:grid;
 
   grid-template-columns:
-    repeat(4,minmax(0,1fr));
+    repeat(
+      4,
+      minmax(0,1fr)
+    );
 
   gap:
-    clamp(6px,1.8vw,16px);
+    clamp(
+      6px,
+      1.8vw,
+      16px
+    );
 }
+
 
 .time-box{
 
   min-width:0;
 
   min-height:
-    clamp(88px,18vw,125px);
+    clamp(
+      88px,
+      18vw,
+      125px
+    );
 
   display:flex;
 
@@ -446,11 +709,14 @@ body{
   padding:8px;
 
   border:
-    1px solid rgba(220,190,105,.42);
+
+    1px solid
+    rgba(220,190,105,.42);
 
   border-radius:9px;
 
   background:
+
     linear-gradient(
       145deg,
       rgba(5,18,12,.82),
@@ -458,26 +724,38 @@ body{
     );
 
   box-shadow:
-    inset 0 0 25px rgba(0,0,0,.45),
-    0 7px 25px rgba(0,0,0,.35);
+
+    inset 0 0 25px
+    rgba(0,0,0,.45),
+
+    0 7px 25px
+    rgba(0,0,0,.35);
 
   backdrop-filter:blur(5px);
 }
+
 
 .number{
 
   color:#f0dda4;
 
   font-size:
-    clamp(28px,7vw,60px);
+    clamp(
+      28px,
+      7vw,
+      60px
+    );
 
   line-height:1;
 
   white-space:nowrap;
 
   text-shadow:
-    0 0 12px rgba(235,205,120,.22);
+
+    0 0 12px
+    rgba(235,205,120,.22);
 }
+
 
 .label{
 
@@ -487,19 +765,28 @@ body{
     rgba(230,215,175,.72);
 
   font-size:
-    clamp(7px,1.8vw,11px);
+    clamp(
+      7px,
+      1.8vw,
+      11px
+    );
 
   letter-spacing:
-    clamp(1px,.7vw,3px);
+    clamp(
+      1px,
+      .7vw,
+      3px
+    );
 
   text-transform:uppercase;
 
   white-space:nowrap;
 }
 
-/* =========================
+
+/* =====================================================
    COMPARTIR
-========================= */
+===================================================== */
 
 .share-button{
 
@@ -510,17 +797,23 @@ body{
   min-width:230px;
 
   border:
-    1px solid rgba(220,190,105,.48);
+
+    1px solid
+    rgba(220,190,105,.48);
 
   border-radius:40px;
 
   background:
+
     rgba(3,12,8,.65);
 
   color:#e4d199;
 
   font-family:
-    Georgia,"Times New Roman",serif;
+
+    Georgia,
+    "Times New Roman",
+    serif;
 
   font-size:11px;
 
@@ -532,6 +825,7 @@ body{
 
   transition:.25s ease;
 }
+
 
 .share-button:hover{
 
@@ -541,241 +835,37 @@ body{
     rgba(50,45,20,.45);
 
   box-shadow:
-    0 0 20px rgba(220,190,100,.16);
+
+    0 0 20px
+    rgba(220,190,100,.16);
 }
+
 
 .share-button:active{
 
   transform:scale(.96);
 }
 
-/* =========================
-   MENÚ
-========================= */
 
-.menu{
-
-  width:100%;
-  max-width:900px;
-
-  margin-top:40px;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-
-  gap:13px;
-}
-
-.menu-button{
-
-  min-height:105px;
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-  justify-content:center;
-
-  border:
-    1px solid rgba(210,180,95,.28);
-
-  border-radius:12px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(3,15,9,.78),
-      rgba(0,5,3,.90)
-    );
-
-  color:#dbc78f;
-
-  cursor:pointer;
-
-  transition:.25s ease;
-
-  backdrop-filter:blur(5px);
-}
-
-.menu-button:hover{
-
-  transform:translateY(-3px);
-
-  border-color:
-    rgba(225,195,110,.65);
-
-  box-shadow:
-    0 8px 25px rgba(0,0,0,.4);
-}
-
-.menu-icon{
-
-  font-size:27px;
-
-  margin-bottom:9px;
-
-  color:#dfc986;
-}
-
-.menu-title{
-
-  font-size:11px;
-
-  letter-spacing:4px;
-
-  text-transform:uppercase;
-}
-
-/* =========================
-   MODAL
-========================= */
-
-.modal{
-
-  position:fixed;
-
-  inset:0;
-
-  z-index:100;
-
-  display:none;
-
-  align-items:center;
-  justify-content:center;
-
-  padding:20px;
-
-  background:
-    rgba(0,0,0,.78);
-
-  backdrop-filter:blur(7px);
-}
-
-.modal.active{
-
-  display:flex;
-}
-
-.modal-box{
-
-  width:100%;
-  max-width:500px;
-
-  padding:30px 25px;
-
-  border:
-    1px solid rgba(220,190,105,.45);
-
-  border-radius:14px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(7,20,13,.98),
-      rgba(1,7,4,.99)
-    );
-
-  box-shadow:
-    0 20px 70px rgba(0,0,0,.7);
-}
-
-.modal-box h2{
-
-  color:#e6d097;
-
-  text-align:center;
-
-  font-size:23px;
-
-  letter-spacing:3px;
-
-  margin-bottom:15px;
-}
-
-.modal-box p{
-
-  color:#cec5a7;
-
-  text-align:center;
-
-  font-size:15px;
-
-  line-height:1.7;
-}
-
-.close-button{
-
-  display:block;
-
-  margin:23px auto 0;
-
-  padding:10px 24px;
-
-  border:
-    1px solid rgba(220,190,105,.42);
-
-  border-radius:30px;
-
-  background:transparent;
-
-  color:#dfcb91;
-
-  font-family:Georgia,serif;
-
-  cursor:pointer;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-
-  margin-top:35px;
-
-  padding-bottom:20px;
-
-  text-align:center;
-
-  color:
-    rgba(220,205,160,.42);
-
-  font-size:10px;
-
-  letter-spacing:4px;
-}
-
-.fan{
-
-  margin-top:9px;
-
-  color:
-    rgba(220,205,160,.25);
-
-  font-size:8px;
-
-  letter-spacing:1.5px;
-}
-
-/* =========================
+/* =====================================================
    MÓVIL / FOLD CERRADO
-========================= */
+===================================================== */
 
 @media(max-width:500px){
 
   .page{
 
     padding-left:12px;
+
     padding-right:12px;
   }
+
 
   .hero{
 
     padding-top:8px;
   }
+
 
   .logo-wrap{
 
@@ -786,6 +876,7 @@ footer{
     overflow:visible;
   }
 
+
   .subtitle{
 
     font-size:17px;
@@ -793,10 +884,12 @@ footer{
     letter-spacing:1.5px;
   }
 
+
   .countdown-section{
 
     margin-top:24px;
   }
+
 
   .date{
 
@@ -805,10 +898,12 @@ footer{
     letter-spacing:3.5px;
   }
 
+
   .countdown{
 
     gap:5px;
   }
+
 
   .time-box{
 
@@ -817,11 +912,17 @@ footer{
     padding:5px;
   }
 
+
   .number{
 
     font-size:
-      clamp(25px,8vw,38px);
+      clamp(
+        25px,
+        8vw,
+        38px
+      );
   }
+
 
   .label{
 
@@ -829,6 +930,7 @@ footer{
 
     letter-spacing:1px;
   }
+
 
   .share-button{
 
@@ -839,297 +941,498 @@ footer{
     font-size:10px;
   }
 
-  .menu{
-
-    margin-top:28px;
-
-    gap:9px;
-  }
-
-  .menu-button{
-
-    min-height:82px;
-  }
-
-  .menu-icon{
-
-    font-size:22px;
-
-    margin-bottom:7px;
-  }
-
-  .menu-title{
-
-    font-size:8px;
-
-    letter-spacing:2px;
-  }
 
   #navi{
 
     width:82px;
   }
 
+
   .music-button{
 
     top:12px;
+
     right:12px;
 
-    width:40px;
-    height:40px;
+    width:44px;
 
-    font-size:18px;
+    height:44px;
   }
 
-  footer{
 
-    margin-top:28px;
+  .ocarina-icon{
+
+    width:27px;
+
+    height:27px;
   }
 
 }
 
+
+/* =====================================================
+   FIN CSS
+===================================================== */
+
 </style>
+
 </head>
 
+
 <body>
+
+
+<!-- ===================================================
+     FONDO
+=================================================== -->
 
 <div class="background"></div>
 
 <div class="ambient-glow"></div>
 
+
+<!-- ===================================================
+     MÚSICA
+=================================================== -->
+
 <audio
+
   id="templeMusic"
+
   src="./temple-of-time.mp3"
+
   loop
+
   preload="auto"
+
   autoplay>
+
 </audio>
 
+
+<!-- ===================================================
+     BOTÓN OCARINA
+=================================================== -->
+
 <button
+
   id="musicButton"
+
   class="music-button"
+
   aria-label="Activar o desactivar música">
-  ♫
+
+
+  <svg
+
+    class="ocarina-icon"
+
+    viewBox="0 0 100 70"
+
+    xmlns="http://www.w3.org/2000/svg"
+
+    aria-hidden="true">
+
+
+    <title>
+      Música
+    </title>
+
+
+    <!-- Cuerpo de la ocarina -->
+
+    <path
+
+      d="
+        M18 38
+
+        C12 34 13 25 20 21
+
+        C27 17 38 18 47 22
+
+        C57 26 66 26 76 22
+
+        C84 19 91 23 92 30
+
+        C94 39 87 47 79 49
+
+        C68 52 57 49 48 46
+
+        C39 43 29 44 23 43
+
+        C21 42 19 40 18 38Z
+      "
+
+      fill="none"
+
+      stroke="currentColor"
+
+      stroke-width="4"
+
+      stroke-linejoin="round"/>
+
+
+    <!-- Agujeros -->
+
+    <circle
+      cx="31"
+      cy="29"
+      r="4"
+      fill="currentColor"/>
+
+
+    <circle
+      cx="43"
+      cy="34"
+      r="4"
+      fill="currentColor"/>
+
+
+    <circle
+      cx="55"
+      cy="37"
+      r="4"
+      fill="currentColor"/>
+
+
+    <circle
+      cx="68"
+      cy="34"
+      r="4"
+      fill="currentColor"/>
+
+
+    <!-- Boquilla -->
+
+    <path
+
+      d="
+        M20 22
+
+        C17 16 18 11 24 8
+
+        C29 6 34 9 35 14
+
+        L35 20
+      "
+
+      fill="none"
+
+      stroke="currentColor"
+
+      stroke-width="4"
+
+      stroke-linecap="round"/>
+
+
+  </svg>
+
 </button>
 
+
+<!-- ===================================================
+     NAVI
+=================================================== -->
+
 <img
+
   id="navi"
+
   src="./navi-clean.png"
+
   alt="">
+
+
+<!-- ===================================================
+     CONTENIDO PRINCIPAL
+=================================================== -->
 
 <main class="page">
 
+
+  <!-- LOGO -->
+
   <section class="hero">
+
 
     <div class="logo-wrap">
 
+
       <img
+
         class="logo"
+
         src="./oot-logo.png"
+
         alt="The Legend of Zelda Ocarina of Time">
 
+
     </div>
 
+
     <div class="subtitle">
+
       «Vuelve la leyenda...»
+
     </div>
+
 
   </section>
 
+
+
+  <!-- CUENTA ATRÁS -->
 
   <section class="countdown-section">
 
+
     <div class="date">
+
       5 · NOVIEMBRE · 2026
+
     </div>
+
 
     <div class="countdown">
 
-      <div class="time-box">
-        <div id="days" class="number">000</div>
-        <div class="label">Días</div>
-      </div>
 
       <div class="time-box">
-        <div id="hours" class="number">00</div>
-        <div class="label">Horas</div>
+
+        <div
+          id="days"
+          class="number">
+
+          000
+
+        </div>
+
+        <div class="label">
+
+          Días
+
+        </div>
+
       </div>
 
-      <div class="time-box">
-        <div id="minutes" class="number">00</div>
-        <div class="label">Minutos</div>
-      </div>
+
 
       <div class="time-box">
-        <div id="seconds" class="number">00</div>
-        <div class="label">Segundos</div>
+
+        <div
+          id="hours"
+          class="number">
+
+          00
+
+        </div>
+
+        <div class="label">
+
+          Horas
+
+        </div>
+
       </div>
+
+
+
+      <div class="time-box">
+
+        <div
+          id="minutes"
+          class="number">
+
+          00
+
+        </div>
+
+        <div class="label">
+
+          Minutos
+
+        </div>
+
+      </div>
+
+
+
+      <div class="time-box">
+
+        <div
+          id="seconds"
+          class="number">
+
+          00
+
+        </div>
+
+        <div class="label">
+
+          Segundos
+
+        </div>
+
+      </div>
+
 
     </div>
 
+
     <button
+
       id="shareButton"
+
       class="share-button">
+
       COMPARTIR CUENTA ATRÁS
+
     </button>
+
 
   </section>
 
-
-  <nav class="menu">
-
-    <button
-      class="menu-button"
-      data-title="Noticias"
-      data-text="Aquí reuniremos las noticias, anuncios y novedades más importantes relacionadas con Ocarina of Time Remake.">
-
-      <span class="menu-icon">✦</span>
-      <span class="menu-title">Noticias</span>
-
-    </button>
-
-
-    <button
-      class="menu-button"
-      data-title="Galería"
-      data-text="Imágenes, capturas y material visual del regreso de la leyenda.">
-
-      <span class="menu-icon">◇</span>
-      <span class="menu-title">Galería</span>
-
-    </button>
-
-
-    <button
-      class="menu-button"
-      data-title="Música"
-      data-text="Un espacio dedicado a la música y al sonido que acompañan esta nueva aventura.">
-
-      <span class="menu-icon">♫</span>
-      <span class="menu-title">Música</span>
-
-    </button>
-
-
-    <button
-      class="menu-button"
-      data-title="Extras"
-      data-text="Curiosidades, secretos, referencias y otros contenidos para los fans de Ocarina of Time.">
-
-      <span class="menu-icon">✧</span>
-      <span class="menu-title">Extras</span>
-
-    </button>
-
-  </nav>
-
-
-  <footer>
-
-    HYRULE AWAITS
-
-    <div class="fan">
-      Proyecto fan no oficial · No afiliado con Nintendo
-    </div>
-
-  </footer>
 
 </main>
 
 
-<div id="modal" class="modal">
-
-  <div class="modal-box">
-
-    <h2 id="modalTitle">
-      Noticias
-    </h2>
-
-    <p id="modalText"></p>
-
-    <button
-      id="closeModal"
-      class="close-button">
-      CERRAR
-    </button>
-
-  </div>
-
-</div>
-
 
 <script>
 
-/* =========================
+
+/* =====================================================
    CUENTA ATRÁS
-========================= */
+===================================================== */
+
 
 const targetDate =
-  new Date("2026-11-05T00:00:00+01:00").getTime();
+
+  new Date(
+    "2026-11-05T00:00:00+01:00"
+  ).getTime();
+
 
 const daysElement =
-  document.getElementById("days");
+
+  document.getElementById(
+    "days"
+  );
+
 
 const hoursElement =
-  document.getElementById("hours");
+
+  document.getElementById(
+    "hours"
+  );
+
 
 const minutesElement =
-  document.getElementById("minutes");
+
+  document.getElementById(
+    "minutes"
+  );
+
 
 const secondsElement =
-  document.getElementById("seconds");
+
+  document.getElementById(
+    "seconds"
+  );
 
 
 function updateCountdown(){
 
+
   const difference =
-    targetDate - Date.now();
+
+    targetDate -
+    Date.now();
+
 
   if(difference <= 0){
 
-    daysElement.textContent="000";
-    hoursElement.textContent="00";
-    minutesElement.textContent="00";
-    secondsElement.textContent="00";
+    daysElement.textContent =
+      "0";
+
+    hoursElement.textContent =
+      "00";
+
+    minutesElement.textContent =
+      "00";
+
+    secondsElement.textContent =
+      "00";
 
     return;
+
   }
 
+
   const totalSeconds =
-    Math.floor(difference / 1000);
+
+    Math.floor(
+      difference / 1000
+    );
+
 
   const days =
-    Math.floor(totalSeconds / 86400);
+
+    Math.floor(
+      totalSeconds / 86400
+    );
+
 
   const hours =
+
     Math.floor(
-      (totalSeconds % 86400) / 3600
+      (totalSeconds % 86400) /
+      3600
     );
+
 
   const minutes =
+
     Math.floor(
-      (totalSeconds % 3600) / 60
+      (totalSeconds % 3600) /
+      60
     );
 
+
   const seconds =
+
     totalSeconds % 60;
 
 
+  /*
+     DÍAS SIN CERO DELANTE
+     52 en lugar de 052
+  */
+
   daysElement.textContent =
-    String(days).padStart(3,"0");
+    String(days);
+
 
   hoursElement.textContent =
-    String(hours).padStart(2,"0");
+
+    String(hours)
+      .padStart(2,"0");
+
 
   minutesElement.textContent =
-    String(minutes).padStart(2,"0");
+
+    String(minutes)
+      .padStart(2,"0");
+
 
   secondsElement.textContent =
-    String(seconds).padStart(2,"0");
+
+    String(seconds)
+      .padStart(2,"0");
+
 }
 
 
 updateCountdown();
+
 
 setInterval(
   updateCountdown,
@@ -1137,169 +1440,286 @@ setInterval(
 );
 
 
-/* =========================
+
+/* =====================================================
    LUCIÉRNAGAS
-========================= */
+===================================================== */
+
 
 for(let i=0;i<26;i++){
 
+
   const firefly =
-    document.createElement("div");
+
+    document.createElement(
+      "div"
+    );
+
 
   firefly.className =
     "firefly";
 
+
   firefly.style.left =
-    Math.random()*100+"vw";
+
+    Math.random()*100 +
+    "vw";
+
 
   firefly.style.top =
-    Math.random()*100+"vh";
+
+    Math.random()*100 +
+    "vh";
+
 
   firefly.style.setProperty(
+
     "--duration",
-    (5+Math.random()*8)+"s"
+
+    (5 + Math.random()*8) +
+    "s"
+
   );
 
+
   firefly.style.setProperty(
+
     "--move-x",
-    (-35+Math.random()*70)+"px"
+
+    (-35 + Math.random()*70) +
+    "px"
+
   );
 
+
   firefly.style.setProperty(
+
     "--move-y",
-    (-45+Math.random()*90)+"px"
+
+    (-45 + Math.random()*90) +
+    "px"
+
   );
 
+
   firefly.style.setProperty(
+
     "--brightness",
-    (0.25+Math.random()*0.55)
+
+    (0.25 + Math.random()*0.55)
+
   );
+
 
   firefly.style.animationDelay =
-    (-Math.random()*8)+"s";
+
+    (-Math.random()*8) +
+    "s";
+
 
   document.body.appendChild(
     firefly
   );
+
 }
 
 
-/* =========================
+
+/* =====================================================
    NAVI
-========================= */
+===================================================== */
+
 
 const navi =
-  document.getElementById("navi");
+
+  document.getElementById(
+    "navi"
+  );
+
 
 let naviReady = false;
 
+
 let naviX =
+
   window.innerWidth * .15;
 
+
 let naviY =
+
   window.innerHeight * .30;
 
+
 let targetX =
+
   window.innerWidth * .75;
 
+
 let targetY =
+
   window.innerHeight * .55;
+
 
 let lastSpark = 0;
 
 
-navi.addEventListener(
-  "load",
-  () => {
-    naviReady = true;
-  }
-);
 
 navi.addEventListener(
-  "error",
+
+  "load",
+
   () => {
-    naviReady = false;
+
+    naviReady = true;
+
   }
+
 );
+
+
+navi.addEventListener(
+
+  "error",
+
+  () => {
+
+    naviReady = false;
+
+  }
+
+);
+
 
 
 function chooseNaviTarget(){
 
+
   const margin = 30;
 
+
   targetX =
+
     margin +
+
     Math.random() *
+
     Math.max(
       1,
       window.innerWidth - 100
     );
 
+
   targetY =
+
     100 +
+
     Math.random() *
+
     Math.max(
       1,
       window.innerHeight - 220
     );
+
 }
+
 
 
 function createNaviSpark(){
 
+
   if(!naviReady){
+
     return;
+
   }
 
+
   const spark =
-    document.createElement("div");
+
+    document.createElement(
+      "div"
+    );
+
 
   spark.className =
     "navi-spark";
 
+
   spark.style.left =
+
     (
+
       naviX +
       35 +
       Math.random()*30
-    )+"px";
+
+    ) +
+
+    "px";
+
 
   spark.style.top =
+
     (
+
       naviY +
       35 +
       Math.random()*30
-    )+"px";
+
+    ) +
+
+    "px";
+
 
   const size =
-    2 + Math.random()*4;
+
+    2 +
+    Math.random()*4;
+
 
   spark.style.width =
-    size+"px";
+    size + "px";
+
 
   spark.style.height =
-    size+"px";
+    size + "px";
+
 
   document.body.appendChild(
     spark
   );
 
+
   setTimeout(
-    () => spark.remove(),
+
+    () =>
+      spark.remove(),
+
     900
+
   );
+
 }
+
 
 
 function animateNavi(time){
 
+
   const dx =
-    targetX - naviX;
+
+    targetX -
+    naviX;
+
 
   const dy =
-    targetY - naviY;
+
+    targetY -
+    naviY;
+
 
   const distance =
+
     Math.sqrt(
       dx*dx +
       dy*dy
@@ -1310,76 +1730,118 @@ function animateNavi(time){
 
     chooseNaviTarget();
 
-  }else{
+  }
+
+  else{
+
 
     const speed =
-      .0015 * distance;
+
+      .0015 *
+      distance;
+
 
     naviX +=
       dx * speed;
 
+
     naviY +=
       dy * speed;
+
   }
 
 
   const swayX =
-    Math.sin(time*.0023)*8;
+
+    Math.sin(
+      time*.0023
+    ) * 8;
+
 
   const swayY =
-    Math.cos(time*.0017)*7;
+
+    Math.cos(
+      time*.0017
+    ) * 7;
+
 
   const angle =
-    Math.atan2(dy,dx) *
-    180 / Math.PI;
+
+    Math.atan2(
+      dy,
+      dx
+    ) *
+
+    180 /
+    Math.PI;
 
 
   navi.style.left =
-    naviX+"px";
+
+    naviX +
+    "px";
+
 
   navi.style.top =
-    naviY+"px";
+
+    naviY +
+    "px";
+
 
   navi.style.transform =
+
     `translate(${swayX}px,${swayY}px)
      rotate(${angle*.12}deg)`;
 
 
   if(
+
     naviReady &&
-    time-lastSpark > 150
+
+    time -
+    lastSpark >
+    150
+
   ){
 
     createNaviSpark();
 
-    lastSpark = time;
+    lastSpark =
+      time;
+
   }
 
 
   requestAnimationFrame(
     animateNavi
   );
+
 }
 
 
 chooseNaviTarget();
+
 
 requestAnimationFrame(
   animateNavi
 );
 
 
-/* =========================
+
+/* =====================================================
    MÚSICA
-   AUTOPLAY + DESBLOQUEO
-========================= */
+===================================================== */
+
 
 const music =
+
   document.getElementById(
     "templeMusic"
   );
 
+
 const musicButton =
+
   document.getElementById(
     "musicButton"
   );
@@ -1388,25 +1850,32 @@ const musicButton =
 music.volume = .35;
 
 
-function setMusicUI(playing){
+
+function setMusicUI(
+  playing
+){
 
   musicButton.classList.toggle(
+
     "playing",
+
     playing
+
   );
 
-  musicButton.textContent =
-    playing ? "🔊" : "♫";
 }
 
 
+
 async function tryStartMusic(){
+
 
   if(!music.paused){
 
     setMusicUI(true);
 
     return true;
+
   }
 
 
@@ -1423,37 +1892,56 @@ async function tryStartMusic(){
 
     return true;
 
-  }catch(error){
+  }
+
+  catch(error){
 
     return false;
+
   }
+
 }
 
 
-/* Intento automático */
+/*
+   Intento de autoplay
+*/
 
 window.addEventListener(
+
   "load",
+
   () => {
+
     tryStartMusic();
+
   }
+
 );
 
 
-/* Si Chrome bloquea el autoplay,
-   cualquier primera interacción
-   intentará arrancar la música */
+
+/*
+   Si el navegador bloquea
+   el autoplay, el primer
+   toque intenta arrancarlo.
+*/
 
 let musicUnlocked = false;
 
 
 async function unlockMusicFromInteraction(){
 
+
   if(musicUnlocked){
+
     return;
+
   }
 
+
   musicUnlocked = true;
+
 
   await tryStartMusic();
 
@@ -1462,14 +1950,23 @@ async function unlockMusicFromInteraction(){
     "pointerdown",
     "touchstart",
     "keydown"
-  ].forEach(type => {
+  ]
 
-    document.removeEventListener(
-      type,
-      unlockMusicFromInteraction
-    );
+  .forEach(
 
-  });
+    type => {
+
+      document.removeEventListener(
+
+        type,
+
+        unlockMusicFromInteraction
+
+      );
+
+    }
+
+  );
 
 }
 
@@ -1478,28 +1975,46 @@ async function unlockMusicFromInteraction(){
   "pointerdown",
   "touchstart",
   "keydown"
-].forEach(type => {
+]
 
-  document.addEventListener(
-    type,
-    unlockMusicFromInteraction,
-    {passive:true}
-  );
+.forEach(
 
-});
+  type => {
+
+    document.addEventListener(
+
+      type,
+
+      unlockMusicFromInteraction,
+
+      {passive:true}
+
+    );
+
+  }
+
+);
 
 
-/* Botón de música */
+
+/*
+   Botón de la ocarina
+*/
 
 musicButton.addEventListener(
+
   "click",
+
   async () => {
+
 
     if(music.paused){
 
       await tryStartMusic();
 
-    }else{
+    }
+
+    else{
 
       music.pause();
 
@@ -1513,33 +2028,48 @@ musicButton.addEventListener(
     }
 
   }
+
 );
 
 
-/* =========================
+
+/* =====================================================
    COMPARTIR
-========================= */
+===================================================== */
+
 
 document
-  .getElementById("shareButton")
+
+  .getElementById(
+    "shareButton"
+  )
+
   .addEventListener(
+
     "click",
+
     async () => {
 
+
       const shareData = {
+
 
         title:
           "OoT Countdown",
 
+
         text:
           "¡Vuelve la leyenda! Cuenta atrás para Ocarina of Time Remake.",
 
+
         url:
           window.location.href
+
       };
 
 
       try{
+
 
         if(navigator.share){
 
@@ -1547,12 +2077,18 @@ document
             shareData
           );
 
-        }else{
+        }
+
+
+        else{
+
 
           await navigator.clipboard
+
             .writeText(
               window.location.href
             );
+
 
           alert(
             "¡Enlace copiado!"
@@ -1560,116 +2096,60 @@ document
 
         }
 
-      }catch(error){}
-
-    }
-  );
-
-
-/* =========================
-   MENÚ
-========================= */
-
-const modal =
-  document.getElementById(
-    "modal"
-  );
-
-const modalTitle =
-  document.getElementById(
-    "modalTitle"
-  );
-
-const modalText =
-  document.getElementById(
-    "modalText"
-  );
-
-const closeModal =
-  document.getElementById(
-    "closeModal"
-  );
-
-
-document
-  .querySelectorAll(
-    ".menu-button"
-  )
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        modalTitle.textContent =
-          button.dataset.title;
-
-        modalText.textContent =
-          button.dataset.text;
-
-        modal.classList.add(
-          "active"
-        );
-
       }
-    );
 
-  });
+      catch(error){}
 
-
-closeModal.addEventListener(
-  "click",
-  () =>
-    modal.classList.remove(
-      "active"
-    )
-);
-
-
-modal.addEventListener(
-  "click",
-  event => {
-
-    if(event.target === modal){
-
-      modal.classList.remove(
-        "active"
-      );
 
     }
 
-  }
-);
+  );
 
 
-/* =========================
+
+/* =====================================================
    SERVICE WORKER
-========================= */
+===================================================== */
 
-if("serviceWorker" in navigator){
+
+if(
+  "serviceWorker"
+  in navigator
+){
 
   window.addEventListener(
+
     "load",
+
     () => {
 
+
       navigator.serviceWorker
+
         .register(
           "./service-worker.js"
         )
+
         .catch(
+
           error =>
+
             console.log(
               "Service Worker:",
               error
             )
+
         );
 
     }
+
   );
 
 }
 
+
 </script>
 
 </body>
+
 </html>
