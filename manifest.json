@@ -1,22 +1,26 @@
 {
   "name": "OoT Countdown",
   "short_name": "OoT Countdown",
-  "description": "Cuenta atrás para Ocarina of Time Remake",
+  "description": "Cuenta atrás para The Legend of Zelda: Ocarina of Time Remake",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#07130d",
-  "theme_color": "#07130d",
+  "background_color": "#06110d",
+  "theme_color": "#06110d",
   "orientation": "portrait",
   "lang": "es",
   "icons": [
-  {
-    "src": "icon-192-shield.png",
-    "sizes": "192x192",
-    "type": "image/png"
-  },
-  {
-    "src": "icon-512-shield.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }
-]
+    {
+      "src": "./icon-192-shield.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512-shield.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
