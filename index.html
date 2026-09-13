@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07130d">
+<link rel="manifest" href="manifest.json">
 <meta name="description" content="Cuenta atrás para Ocarina of Time - 5 de noviembre de 2026">
 
 <title>OoT Countdown</title>
@@ -343,6 +344,13 @@ updateCountdown();
 
 setInterval(updateCountdown, 1000);
 
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js");
+  });
+}
 </script>
 
 </body>
